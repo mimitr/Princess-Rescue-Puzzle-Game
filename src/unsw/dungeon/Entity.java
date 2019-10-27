@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.BooleanProperty;
 
 /**
  * An entity in the dungeon.
@@ -38,5 +39,27 @@ public class Entity {
 
     public int getX() {
         return x().get();
+    }
+   
+    public Boolean onSquare(int x, int y) {
+    	//System.out.println("on square");
+    	//System.out.println(name());
+    	if(x == x().get() && y == y().get()) {
+    		return true;
+    	}
+    	//System.out.println("return false");
+    	return false;
+    }
+    
+    public String name() {
+    	return "";
+    }
+    
+    public Boolean canBePickedUp() {
+    	return false;
+    }
+    
+    public void meetPlayer(Player player) {
+    	System.out.println("Meet player");
     }
 }

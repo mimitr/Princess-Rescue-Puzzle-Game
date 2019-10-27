@@ -24,6 +24,12 @@ public class DungeonControllerLoader extends DungeonLoader {
     //Images
     private Image playerImage;
     private Image wallImage;
+    private Image keyImage;
+    private Image closedDoorImage;
+    private Image openDoorImage;
+    private Image swordImage;
+    private Image potionImage;
+    private Image treasureImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -31,6 +37,12 @@ public class DungeonControllerLoader extends DungeonLoader {
         entities = new ArrayList<>();
         playerImage = new Image("/human_new.png");
         wallImage = new Image("/brick_brown_0.png");
+        keyImage = new Image("/key.png");
+        closedDoorImage = new Image("/closed_door.png");
+        openDoorImage = new Image("/open_door.png");
+        swordImage = new Image("/greatsword_1_new.png");
+        potionImage = new Image("/bubbly.png");
+        treasureImage = new Image("/gold_pile.png");
     }
 
     @Override
@@ -44,11 +56,42 @@ public class DungeonControllerLoader extends DungeonLoader {
         ImageView view = new ImageView(wallImage);
         addEntity(wall, view);
     }
-
+    
+    @Override
+    public void onLoad(Door door) {
+    	ImageView view = new ImageView(closedDoorImage);
+        addEntity(door, view);
+    }
+    
+    @Override
+    public void onLoad(Key key) {
+    	ImageView view = new ImageView(keyImage);
+        addEntity(key, view);
+    }
+    /*
+    @Override
+    public void onLoad( sword) {
+        ImageView view = new ImageView(swordImage);
+        addEntity(sword, view);
+    }
+    
+    @Override
+    public void onLoad(Entity player) {
+        ImageView view = new ImageView(playerImage);
+        addEntity(player, view);
+    }
+    
+    @Override
+    public void onLoad(Entity player) {
+        ImageView view = new ImageView(playerImage);
+        addEntity(player, view);
+    }
+    */
     private void addEntity(Entity entity, ImageView view) {
         trackPosition(entity, view);
         entities.add(view);
     }
+    
 
     /**
      * Set a node in a GridPane to have its position track the position of an

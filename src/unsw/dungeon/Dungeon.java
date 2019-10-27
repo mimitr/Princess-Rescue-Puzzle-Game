@@ -45,5 +45,19 @@ public class Dungeon {
         entities.add(entity);
     }
     
+    public Entity getEntityOnSquare(int x, int y) {
+    	//System.out.println("inside get entity on square");
+    	Entity e = null;
+    	for(Entity entity : entities) {
+    		//System.out.println(entity.name());
+    		if(entity.onSquare(x, y) && !entity.equals(player)) {
+    			System.out.println(entity.name());
+    			e = entity;
+    			break;
+    		}
+    	}
+    	//System.out.println("entity is null");
+    	return e;
+    }
     
 }

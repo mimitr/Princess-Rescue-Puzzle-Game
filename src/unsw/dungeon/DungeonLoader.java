@@ -46,7 +46,7 @@ public abstract class DungeonLoader {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
-
+        int id;
         Entity entity = null;
         switch (type) {
         case "player":
@@ -60,15 +60,45 @@ public abstract class DungeonLoader {
             onLoad(wall);
             entity = wall;
             break;
+        case "door":
+        	id = json.getInt("id");
+        	//System.out.println("666666");
+        	Door door = new Door(x, y, id);
+        	//System.out.println("door door");
+        	onLoad(door);
+        	//System.out.println("succeed");
+        	entity = door;
+        	break;
+        //case "boulder":
+        //	Boulder boulder = new Boulder(x, y);
+        	//onLoad(boulder);
+        	//entity = boulder;
+       // 	break;
+        case "key":
+        	//System.out.println("key key key");
+        	id = json.getInt("id");
+        	Key key = new Key(x, y, id);
+        	//System.out.println(key);
+        	onLoad(key);
+        	//System.out.println("hahaha");
+        	entity = key;
+        	//System.out.println("successful");
+        	break;
         // TODO Handle other possible entities
         }
-        dungeon.addEntity(entity);
+        if(entity != null) {
+        	dungeon.addEntity(entity);
+        }
+        
     }
 
     public abstract void onLoad(Entity player);
 
     public abstract void onLoad(Wall wall);
 
+    public abstract void onLoad(Door door);
+    
+    public abstract void onLoad(Key key);
     // TODO Create additional abstract methods for the other entities
 
 }
