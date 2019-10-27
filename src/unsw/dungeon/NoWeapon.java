@@ -33,6 +33,10 @@ public class NoWeapon implements PlayerState {
 		}
 	}
 	
+	public void putDown() {
+		System.out.println("Player carries nothing");
+	}
+	
 	public Boolean activeWeapon() {
 		return false;
 	}

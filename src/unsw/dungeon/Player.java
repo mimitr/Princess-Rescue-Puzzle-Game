@@ -65,6 +65,10 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	currState.pickUp(entity);
     }
     
+    public void putDown() {
+    	currState.putDown();
+    }
+    
     public Boolean activeWeapon() {
     	return currState.activeWeapon();
     }
@@ -133,7 +137,8 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 				}
 				break;
 			case "boulder":
-				// make the boulder to move with the player
+				// make the boulder to move with the player in the same direction
+				
 				break;
 			case "wall":
 				//System.out.println("there is a wall");
@@ -173,6 +178,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	return carriedEntity;
     }
     
+     
     public void checkSameSquare() {
     	// check if there is any entity on the same square as the player
     	System.out.println("Checking same square");

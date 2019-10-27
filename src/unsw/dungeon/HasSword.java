@@ -18,6 +18,11 @@ public class HasSword implements PlayerState {
 		}
 	}
 	
+	public void putDown() {
+		player.detach();
+		player.setState(player.getNoWeaponState());
+	}
+	
 	public Boolean activeWeapon() {
 		return true;
 	}
