@@ -69,11 +69,11 @@ public abstract class DungeonLoader {
         	//System.out.println("succeed");
         	entity = door;
         	break;
-        //case "boulder":
-        //	Boulder boulder = new Boulder(x, y);
-        	//onLoad(boulder);
-        	//entity = boulder;
-       // 	break;
+        case "boulder":
+        	Boulder boulder = new Boulder(x, y);
+        	onLoad(boulder);
+        	entity = boulder;
+        	break;
         case "key":
         	//System.out.println("key key key");
         	id = json.getInt("id");
@@ -99,6 +99,8 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Door door);
     
     public abstract void onLoad(Key key);
+    
+    public abstract void onLoad(Boulder boulder);
     // TODO Create additional abstract methods for the other entities
 
 }

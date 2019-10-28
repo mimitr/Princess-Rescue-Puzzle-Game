@@ -48,6 +48,8 @@ public class Door extends Entity {
 		        		// How to change the image?
 		        	}
 	    		}
+	    	} else {
+	    		System.out.println("player doesn't have a key");
 	    	}
     	}
     }

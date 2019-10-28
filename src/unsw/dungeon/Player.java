@@ -80,45 +80,45 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     public void moveUp() {
     	// check the next square contains any entity
     	// wall, door, boulder
-    	if(getY() > 0 && canMove(x().get(), y().get() - 1)) {
+    	if(getY() > 0 && canMove(x().get(), y().get() - 1, -2, 0, 0, 0)) {
     		y().set(getY() - 1);
     	}
     	checkSameSquare();
-    	if(Objects.nonNull(carriedEntity)) {
-    		notifyEntity();
+    	if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+    		notifyEntity(1,0,0,0);
     	}
         // after move to the next square, check if there is any entity0  
     }
 
     public void moveDown() {
-        if ((getY() < dungeon.getHeight() - 1) && canMove(x().get(), y().get() + 1))
+        if ((getY() < dungeon.getHeight() - 1) && canMove(x().get(), y().get() + 1, 0, 2, 0, 0))
             y().set(getY() + 1);
         checkSameSquare();
-        if(Objects.nonNull(carriedEntity)) {
-    		notifyEntity();
+        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+    		notifyEntity(0,1,0,0);
     	}
     }
 
     public void moveLeft() {
-        if (getX() > 0 && canMove(getX() - 1, getY()))
+        if (getX() > 0 && canMove(getX() - 1, getY(), 0, 0, -2, 0))
             x().set(getX() - 1);
-        System.out.println("Inside move left");
+        //System.out.println("Inside move left");
         checkSameSquare();
-        if(Objects.nonNull(carriedEntity)) {
-    		notifyEntity();
+        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+    		notifyEntity(0,0,-1,0);
     	}
     }
 
     public void moveRight() {
-        if (getX() < dungeon.getWidth() - 1 && canMove(getX() + 1, getY()))
+        if (getX() < dungeon.getWidth() - 1 && canMove(getX() + 1, getY(), 0, 0, 0, 2))
             x().set(getX() + 1);
         checkSameSquare();
-        if(Objects.nonNull(carriedEntity)) {
-    		notifyEntity();
+        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+    		notifyEntity(0,0,0,1);
     	}
     }
     
-    public boolean canMove(int x, int y) {
+    public boolean canMove(int x, int y, int up, int down, int left, int right) {
     	//System.out.println("inside can move");
     	Entity entity = null;
     	Boolean canMove = true;
@@ -135,16 +135,43 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 				if(!door.isOpen()) {
 					canMove = false;
 				}
+				if(Objects.nonNull(carriedEntity) && ((Entity)carriedEntity).name().equals("boudler")) {
+					canMove = false;
+				}
 				break;
 			case "boulder":
 				// make the boulder to move with the player in the same direction
-				
+				// notify boulder here
+				System.out.println("Next square contains a boulder");
+				if(Objects.isNull(carriedEntity)) {
+					System.out.println("carrying nothing");
+					attach((EntityObserver)entity);
+					//if(!((Boulder)entity).canMoveFurther()) {
+					//	canMove = false;
+					//}
+					canMove = canMove(getX() + left + right, getY() + up + down, 0, 0, 0, 0);
+					if(canMove) {
+						System.out.println("can move");
+						notifyEntity(up, down, left, right);
+					}
+					// check if the boulder can move
+					detach();
+				} else {
+					canMove = false;
+				}
+				System.out.println("After checking next square of the boulder");
+				//canMove = false;
 				break;
 			case "wall":
 				//System.out.println("there is a wall");
 				canMove = false;
 				break;
 			case "key":
+				System.out.println("Next square contains a key");
+				System.out.println("Carrying " + carriedEntity);
+				if(Objects.nonNull(carriedEntity) && ((Entity)carriedEntity).name().equals("boulder")) {
+					canMove = false;
+				}
 				// add key to player's bag
 				break;
 			}
@@ -169,9 +196,9 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	}
     }
     
-    public void notifyEntity() {
+    public void notifyEntity(int up, int down, int left, int right) {
     	// tell the carried entity to move with the player
-    	carriedEntity.update(this);
+    	carriedEntity.update(this, up, down, left, right);
     }
     
     public EntityObserver getCarriedEntity() {
