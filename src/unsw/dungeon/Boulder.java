@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.Objects;
+
 public class Boulder extends Entity implements EntityObserver {
 	
 	private Boolean canMoveFurther = false;
@@ -9,8 +11,8 @@ public class Boulder extends Entity implements EntityObserver {
     }
 	
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
-		x().setValue(((Player) player).getX() + left + right);
-		y().setValue(((Player) player).getY() + up + down);
+		x().setValue(getX() + left + right);
+		y().setValue(getY() + up + down);
 	}
 	
 	public Boolean canMoveFurther() {
@@ -19,5 +21,19 @@ public class Boulder extends Entity implements EntityObserver {
 	
     public String name() {
     	return "boulder";
+    }
+    
+    public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+    	Boolean canMove = false;
+    	if(Objects.isNull(player.getCarriedEntity())) {
+    		player.attach((EntityObserver)this);
+    		if(player.canMove(getX() + left + right, getY() + up + down, 0, 0, 0, 0)) {
+    			//player.attach((EntityObserver)this);
+    			canMove = true;
+    			player.notifyEntity(up, down, left, right);
+    		}
+    		player.detach();
+    	}
+    	return canMove;
     }
 }

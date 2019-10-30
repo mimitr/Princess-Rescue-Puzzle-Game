@@ -8,4 +8,7 @@ public class Wall extends Entity {
     public String name() {
     	return "wall";
     }
+    public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+    	return false;
+    }
 }
