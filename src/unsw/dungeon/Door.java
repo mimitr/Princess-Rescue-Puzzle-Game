@@ -33,12 +33,23 @@ public class Door extends Entity {
     	return "door";
     }
     
-    public void meetPlayer(Player player) {
+    public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
     	// determine player state
+    	Boolean canMove = true;
     	if(!open) {
 	    	if(player.getCurrState().equals(player.getHasKeyState())) {
-	    		Entity entity = (Entity) player.getCarriedEntity();
-	    		if(entity.name().equals("key")) {
+	    		Key key = (Key) player.getCarriedEntity();
+	    		if(key.keyID() == id) {
+	        		open = true;
+	        		// detach the key from the player
+	        		player.getCurrState().putDown();
+	        		// change closed door image to open door image
+	        		// How to change the image?
+	        	} else {
+	        		canMove = false;
+	        	}
+	    		/*
+	    		if(entity instanceof Key) {
 	    			Key key = (Key) entity;
 		        	if(key.keyID() == id) {
 		        		open = true;
@@ -46,12 +57,17 @@ public class Door extends Entity {
 		        		player.getCurrState().putDown();
 		        		// change closed door image to open door image
 		        		// How to change the image?
+		        	} else {
+		        		canMove = false;
 		        	}
 	    		}
+	    		*/
 	    	} else {
-	    		System.out.println("player doesn't have a key");
+	    		canMove = false;
+	    		//System.out.println("player doesn't have a key");
 	    	}
     	}
+    	return canMove;
     }
     
     public Boolean isOpen() {

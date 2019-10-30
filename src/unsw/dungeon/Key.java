@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.Objects;
+
 public class Key extends Entity implements EntityObserver {
 	
 	private int id;
@@ -27,5 +29,11 @@ public class Key extends Entity implements EntityObserver {
 		//x().s
 		x().setValue(((Player) player).getX());
 		y().setValue(((Player) player).getY());
+	}
+	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+		if(Objects.nonNull(player.getCarriedEntity()) && player.getCarriedEntity() instanceof Boulder) {
+			return false;
+		}
+		return true;
 	}
 }

@@ -62,4 +62,8 @@ public class Entity {
     public void meetPlayer(Player player) {
     	System.out.println("Meet player");
     }
+    
+    public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+    	return true;
+    }
 }
