@@ -6,7 +6,7 @@ import javafx.beans.property.BooleanProperty;
 
 /**
  * An entity in the dungeon.
- * @author Robert Clifton-Everest
+ * @author Robert Clifton-Everestca
  *
  */
 public class Entity {

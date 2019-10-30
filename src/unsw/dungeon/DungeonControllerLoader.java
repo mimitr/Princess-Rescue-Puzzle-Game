@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,19 +77,20 @@ public class DungeonControllerLoader extends DungeonLoader {
         ImageView view = new ImageView(boulderImage);
         addEntity(boulder, view);
     }
-    /*
+    
     @Override
-    public void onLoad( sword) {
+    public void onLoad(Sword sword) {
         ImageView view = new ImageView(swordImage);
         addEntity(sword, view);
     }
     
-    @Override
-    public void onLoad(Entity player) {
-        ImageView view = new ImageView(playerImage);
-        addEntity(player, view);
-    }
     
+    @Override
+    public void onLoad(Potion potion) {
+        ImageView view = new ImageView(potionImage);
+        addEntity(potion, view);
+    }
+    /*
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
