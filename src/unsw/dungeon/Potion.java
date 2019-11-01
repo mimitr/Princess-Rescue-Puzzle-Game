@@ -10,20 +10,25 @@ public class Potion extends Entity implements EntityObserver{
 	//Because of this, all enemies will run away from the player when they are invincible. 
 	//The effect of the potion only lasts a limited time.
 	
-	static Timer timer;
-	static int interval;
+	private int counter;
 	
 	public Potion(int x, int y) {
 		super(x, y);
-		interval = 10;
-		timer = new Timer();
+		counter = 20;
 	}
 
 	@Override
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
 		// move along with the player
-			x().setValue(((Player) player).getX());
-			y().setValue(((Player) player).getY());
+		if (counter != 0) {
+		x().setValue(((Player) player).getX());
+		y().setValue(((Player) player).getY());
+			counter--;
+			System.out.println(counter);
+		} else {
+			((Player) player).setState(new NoWeapon((Player) player));
+		}
+		// should make the potion disappear somehow	
 		
 	}
 	

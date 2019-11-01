@@ -130,6 +130,8 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Treasure treasure);
     
     public abstract void onLoad(Portal portal);
+    
+    public abstract void onLoad(Enemy enemy);
     // TODO Create additional abstract methods for the other entities
 
 }
