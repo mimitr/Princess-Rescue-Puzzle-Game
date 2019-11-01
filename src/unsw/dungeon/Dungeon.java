@@ -60,4 +60,15 @@ public class Dungeon {
     	return e;
     }
     
+    public Portal getOtherPortal(Portal portal) {
+    	Portal otherPortal = null;
+    	for(Entity entity : entities) {
+    		if(entity.getClass().equals(portal.getClass()) && !portal.equals((Portal)entity) && portal.getID() == ((Portal)entity).getID()) {
+    			otherPortal = (Portal) entity;
+    			break;
+    		}
+    	}
+    	return otherPortal;
+    }
+    
 }

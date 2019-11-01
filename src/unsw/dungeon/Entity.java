@@ -66,4 +66,8 @@ public class Entity {
     public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
     	return true;
     }
+    
+    public void pickedUp(Player player) {
+    	System.out.println("Picked up by player");
+    }
 }

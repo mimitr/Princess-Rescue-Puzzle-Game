@@ -23,4 +23,8 @@ public class Treasure extends Entity implements EntityObserver {
 		return true;
 	}
 	
+	public void pickedUp(Player player) {
+		player.increaseTreasureAmount();
+	}
+	
 }

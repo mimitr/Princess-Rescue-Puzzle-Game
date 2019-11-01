@@ -62,6 +62,9 @@ public class DungeonController {
         case RIGHT:
             player.moveRight();
             break;
+        case SPACE:
+        	player.putDown();
+        	break;
         default:
             break;
         }

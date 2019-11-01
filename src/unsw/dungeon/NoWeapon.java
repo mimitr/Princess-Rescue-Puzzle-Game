@@ -12,11 +12,14 @@ public class NoWeapon implements PlayerState {
 	
 	public void pickUp(Entity entity) {
 		// can pick up anything
+		entity.pickedUp(player);
+		/*
 		if(entity.name().equals("treasure")) {
 			player.increaseTreasureAmount();
 		} else {
 			// the image of the entity should move as the player moves
 			if(entity.name().equals("sword")) {
+				//System.out.println("666");
 				player.attach((EntityObserver)entity);
 				player.setState(player.getHasSwordState());
 			}
@@ -31,6 +34,7 @@ public class NoWeapon implements PlayerState {
 			}
 			
 		}
+		*/
 	}
 	
 	public void putDown() {

@@ -17,6 +17,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     private PlayerState hasKeyState;
     private PlayerState currState = noWeaponState;
     private int treasureAmount;
+    private GoalComponent goal;
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -60,6 +61,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     }
     
     public void pickUp(Entity entity) {
+    	System.out.println("555");
     	currState.pickUp(entity);
     }
     
@@ -223,6 +225,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	entity = dungeon.getEntityOnSquare(getX(), getY());
     	if(Objects.nonNull(entity)) {
     		if(entity.canBePickedUp()) {
+    			System.out.println("can be picked up");
     			pickUp(entity);
     		} else {
     			entity.canPlayerMove(this, 0, 0, 0, 0);
@@ -236,6 +239,10 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     
     public int treasureAmount() {
     	return treasureAmount;
+    }
+    
+    public Dungeon getDungeon() {
+    	return dungeon;
     }
 }
 

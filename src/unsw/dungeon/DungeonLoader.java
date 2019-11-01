@@ -85,6 +85,27 @@ public abstract class DungeonLoader {
         	//System.out.println("successful");
         	break;
         // TODO Handle other possible entities
+        case "treasure":
+        	Treasure treasure = new Treasure(x, y);
+        	onLoad(treasure);
+        	entity = treasure;
+        	break;
+        case "sword":
+        	Sword sword = new Sword(x, y);
+        	onLoad(sword);
+        	entity = sword;
+        	break;
+        case "portal":
+        	id = json.getInt("id");
+        	Portal portal = new Portal(x, y, id);
+        	onLoad(portal);
+        	entity = portal;
+        	break;
+        case "invincibility":
+        	Potion potion = new Potion(x, y);
+        	onLoad(potion);
+        	entity = potion;
+        	break;
         }
         if(entity != null) {
         	dungeon.addEntity(entity);
@@ -105,6 +126,10 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Sword sword);
     
     public abstract void onLoad(Potion potion);
+    
+    public abstract void onLoad(Treasure treasure);
+    
+    public abstract void onLoad(Portal portal);
     // TODO Create additional abstract methods for the other entities
 
 }
