@@ -22,21 +22,9 @@ public class Potion extends Entity implements EntityObserver{
 	@Override
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
 		// move along with the player
-		int delay = 1000;
-		timer.scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				x().setValue(((Player) player).getX());
-				y().setValue(((Player) player).getY());	
-	            System.out.println(setInterval());
-	        }
-		}, delay, interval);
+			x().setValue(((Player) player).getX());
+			y().setValue(((Player) player).getY());
 		
-	}
-	
-	private static final int setInterval() {
-	    if (interval == 1)
-	        timer.cancel();
-	    return --interval;
 	}
 	
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
