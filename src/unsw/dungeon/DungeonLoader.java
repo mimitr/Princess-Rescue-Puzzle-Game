@@ -101,6 +101,11 @@ public abstract class DungeonLoader {
         	onLoad(portal);
         	entity = portal;
         	break;
+        case "enemy":
+        	Enemy enemy = new Enemy(x, y);
+        	onLoad(enemy);
+        	entity = enemy;
+        	break;
         case "invincibility":
         	Potion potion = new Potion(x, y);
         	onLoad(potion);
