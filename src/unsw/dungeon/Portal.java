@@ -12,19 +12,29 @@ public class Portal extends Entity {
 	}
 	
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+		Boolean canMove = true;
 		if((player.getX() + left + right) == getX() && player.getY() + up + down == getY()) {
 			// send the player to the other corresponding portal
 			Dungeon dungeon = player.getDungeon();
 			Portal otherPortal = dungeon.getOtherPortal(this);
 			if(Objects.nonNull(otherPortal)) {
-				player.x().set(otherPortal.getX());
-				player.y().set(otherPortal.getY() + 1);
-				
+				System.out.println(otherPortal.getX());
+				System.out.println(otherPortal.getY());
+				if(player.canMove(otherPortal.getX() + left + right, otherPortal.getY() + up + down, up, down, left, right)) {
+					//System.out.println(otherPortal.getX());
+					//System.out.println(otherPortal.getY());
+					player.x().set(otherPortal.getX());
+					player.y().set(otherPortal.getY());
+					//return true;
+				} else {
+					canMove = false;
+				}
+				//canMove = false;
+			} else {
+				canMove = false;
 			}
-			return true;
-		} else {
-			return true;
 		}
+		return canMove;
 	}
 	
 	public int getID() {

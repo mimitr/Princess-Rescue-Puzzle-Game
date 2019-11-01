@@ -9,6 +9,7 @@ public class Wall extends Entity {
     	return "wall";
     }
     public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+    	System.out.println("cannot move");
     	return false;
     }
 }
