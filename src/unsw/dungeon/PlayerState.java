@@ -6,5 +6,5 @@ public interface PlayerState {
 	public void pickUp(Entity entity);
 	public void putDown();
 	public Boolean activeWeapon();
-	public void killEnemy();
+	public Boolean killEnemy();
 }

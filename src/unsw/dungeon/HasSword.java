@@ -27,8 +27,18 @@ public class HasSword implements PlayerState {
 		return true;
 	}
 	
-	public void killEnemy() {
+	public Boolean killEnemy() {
 		// if the sword still has remaining hits
 		// make the enemy disappear from the dungeon
+		Sword sword = (Sword)player.getCarriedEntity();
+		if(sword.getRemainingHits() > 0) {
+			System.out.println("Player can still kill an enemy");
+			sword.setRemainingHits();
+			return true;
+		} else {
+			player.setState(player.getNoWeaponState());
+			return false;
+		}
+		//return true;
 	}
 }

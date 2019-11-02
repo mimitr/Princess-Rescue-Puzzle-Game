@@ -21,7 +21,7 @@ import javafx.scene.layout.GridPane;
 public class DungeonControllerLoader extends DungeonLoader {
 
     private List<ImageView> entities;
-
+    
     //Images
     private Image playerImage;
     private Image wallImage;
@@ -125,7 +125,6 @@ public class DungeonControllerLoader extends DungeonLoader {
         entities.add(view);
     }
     
-
     /**
      * Set a node in a GridPane to have its position track the position of an
      * entity in the dungeon.

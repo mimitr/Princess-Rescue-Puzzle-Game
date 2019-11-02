@@ -45,9 +45,10 @@ public class NoWeapon implements PlayerState {
 		return false;
 	}
 	
-	public void killEnemy() {
+	public Boolean killEnemy() {
 		// Instead of killing the enemy, the player get killed
 		// player loses the game
 		// ask the player if she/he wants to restart again
+		return false;
 	}
 }

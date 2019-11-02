@@ -20,6 +20,7 @@ public class Treasure extends Entity implements EntityObserver {
 		if(Objects.nonNull(player.getCarriedEntity()) && player.getCarriedEntity() instanceof Boulder) {
 			return false;
 		}
+		//pickedUp(player);
 		return true;
 	}
 	

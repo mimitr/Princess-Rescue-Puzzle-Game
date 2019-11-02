@@ -18,6 +18,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     private PlayerState currState = noWeaponState;
     private int treasureAmount;
     private GoalComponent goal;
+    private Boolean alive;
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -33,8 +34,16 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
         hasKeyState = new HasKey(this);
         currState = noWeaponState;
         treasureAmount = 0;
+        alive = true;
     }
     
+    public Boolean stillAlive() {
+    	return alive;
+    }
+    
+    public void setAlive(Boolean alive) {
+    	this.alive = alive;
+    }
     public PlayerState getCurrState() {
     	return currState;
     }
@@ -73,48 +82,64 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	return currState.activeWeapon();
     }
     
-    public void killEnemy() {
-    	currState.killEnemy();
+    
+    public Boolean killEnemy() {
+    	return currState.killEnemy();
     }
     
     public void moveUp() {
     	// check the next square contains any entity
     	// wall, door, boulder
-    	if(getY() > 0 && canMove(x().get(), y().get() - 1, -1, 0, 0, 0)) {
-    		y().set(getY() - 1);
-    	}
-    	checkSameSquare();
-    	if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
-    		notifyEntity(1,0,0,0);
+    	if(alive) {
+	    	if(getY() > 0 && canMove(x().get(), y().get() - 1, -1, 0, 0, 0)) {
+	    		y().set(getY() - 1);
+	    	}
+	    	checkSameSquare();
+	    	if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+	    		notifyEntity(1,0,0,0);
+	    	}
+	    	dungeon.enemyMove();
     	}
         // after move to the next square, check if there is any entity0  
     }
 
     public void moveDown() {
-        if ((getY() < dungeon.getHeight() - 1) && canMove(x().get(), y().get() + 1, 0, 1, 0, 0))
-            y().set(getY() + 1);
-        checkSameSquare();
-        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
-    		notifyEntity(0,1,0,0);
+    	if(alive) {
+	        if ((getY() < dungeon.getHeight() - 1) && canMove(x().get(), y().get() + 1, 0, 1, 0, 0))
+	            y().set(getY() + 1);
+	        checkSameSquare();
+	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+	    		notifyEntity(0,1,0,0);
+	    	}
+	        dungeon.enemyMove();
     	}
     }
 
     public void moveLeft() {
-        if (getX() > 0 && canMove(getX() - 1, getY(), 0, 0, -1, 0))
-            x().set(getX() - 1);
-        //System.out.println("Inside move left");
-        checkSameSquare();
-        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
-    		notifyEntity(0,0,-1,0);
+    	if(alive) {
+	        if (getX() > 0 && canMove(getX() - 1, getY(), 0, 0, -1, 0)) {
+	            x().set(getX() - 1);
+	            dungeon.enemyMove();
+	        }
+	        //System.out.println("Inside move left");
+	        checkSameSquare();
+	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+	    		notifyEntity(0,0,-1,0);
+	    	}
+	        //dungeon.enemyMove();
     	}
     }
 
     public void moveRight() {
-        if (getX() < dungeon.getWidth() - 1 && canMove(getX() + 1, getY(), 0, 0, 0, 1))
-            x().set(getX() + 1);
-        checkSameSquare();
-        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
-    		notifyEntity(0,0,0,1);
+    	if(alive) {
+	        if (getX() < dungeon.getWidth() - 1 && canMove(getX() + 1, getY(), 0, 0, 0, 1)) {
+	            x().set(getX() + 1);
+	            dungeon.enemyMove();
+	        }
+	        checkSameSquare();
+	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
+	    		notifyEntity(0,0,0,1);
+	    	}
     	}
     }
     
@@ -224,11 +249,13 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	Entity entity = null;
     	entity = dungeon.getEntityOnSquare(getX(), getY());
     	if(Objects.nonNull(entity)) {
+    		System.out.println("Entity on the same square is " + entity);
     		if(entity.canBePickedUp()) {
     			System.out.println("can be picked up");
     			pickUp(entity);
     		} else {
     			entity.canPlayerMove(this, 0, 0, 0, 0);
+    			//entity.canEnemyMove();
     		}
     	}
     }

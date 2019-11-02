@@ -24,7 +24,8 @@ public class HasKey implements PlayerState {
 		return false;
 	}
 	
-	public void killEnemy() {
+	public Boolean killEnemy() {
 		// player will die
+		return false;
 	}
 }

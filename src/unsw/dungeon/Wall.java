@@ -12,4 +12,8 @@ public class Wall extends Entity {
     	System.out.println("cannot move");
     	return false;
     }
+    
+    public Boolean canEnemyMove() {
+		return false;
+	}
 }

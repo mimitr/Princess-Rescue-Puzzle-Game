@@ -59,6 +59,7 @@ public abstract class DungeonLoader {
             Wall wall = new Wall(x, y);
             onLoad(wall);
             entity = wall;
+            dungeon.addWall(wall);
             break;
         case "door":
         	id = json.getInt("id");
@@ -73,6 +74,7 @@ public abstract class DungeonLoader {
         	Boulder boulder = new Boulder(x, y);
         	onLoad(boulder);
         	entity = boulder;
+        	dungeon.addBoulder(boulder);
         	break;
         case "key":
         	//System.out.println("key key key");
@@ -100,21 +102,25 @@ public abstract class DungeonLoader {
         	Portal portal = new Portal(x, y, id);
         	onLoad(portal);
         	entity = portal;
+        	dungeon.addPortal(portal);
         	break;
         case "enemy":
-        	Enemy enemy = new Enemy(x, y);
+        	Enemy enemy = new Enemy(dungeon, x, y);
         	onLoad(enemy);
         	entity = enemy;
+        	dungeon.addEnemy(enemy);
         	break;
         case "invincibility":
-        	Potion potion = new Potion(x, y);
+        	Potion potion = new Potion(dungeon, x, y);
         	onLoad(potion);
         	entity = potion;
         	break;
         }
+        
         if(entity != null) {
         	dungeon.addEntity(entity);
         }
+        
         
     }
 

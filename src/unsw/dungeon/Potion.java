@@ -11,10 +11,12 @@ public class Potion extends Entity implements EntityObserver{
 	//The effect of the potion only lasts a limited time.
 	
 	private int counter;
+	private Dungeon dungeon;
 	
-	public Potion(int x, int y) {
+	public Potion(Dungeon dungeon, int x, int y) {
 		super(x, y);
 		counter = 20;
+		this.dungeon = dungeon;
 	}
 
 	@Override
@@ -27,11 +29,17 @@ public class Potion extends Entity implements EntityObserver{
 			System.out.println(counter);
 		} else {
 			((Player) player).setState(new NoWeapon((Player) player));
+			dungeon.enemyMoveTowards();
 		}
 		// should make the potion disappear somehow	
 		
 	}
-	
+	public void decreaseCount() {
+		counter--;
+	}
+	public int getCounter() {
+		return counter;
+	}
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
 		if(Objects.nonNull(player.getCarriedEntity()) && player.getCarriedEntity() instanceof Boulder) {
 			return false;
@@ -46,5 +54,7 @@ public class Potion extends Entity implements EntityObserver{
 	public void pickedUp(Player player) {
 		player.attach((EntityObserver)this);
 		player.setState(player.getHasPotionState());
+		dungeon.enemyMoveAway();
+		//
 	}
 }

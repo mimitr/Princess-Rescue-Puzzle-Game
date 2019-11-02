@@ -41,4 +41,5 @@ public class Key extends Entity implements EntityObserver {
 		player.attach((EntityObserver)this);
 		player.setState(player.getHasKeyState());
 	}
+	
 }

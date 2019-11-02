@@ -27,10 +27,16 @@ public class HasPotion implements PlayerState {
 		return true;
 	}
 	
-	public void killEnemy() {
-		if(Objects.nonNull(player.getCarriedEntity())) {
-			// the enemy should disappear from the dungeon
+	public Boolean killEnemy() {
+		Potion potion = (Potion)player.getCarriedEntity();
+		if(potion.getCounter() > 0) {
+			potion.decreaseCount();
+			return true;
+		} else {
+			player.setState(player.getNoWeaponState());
+			return false;
 		}
+		
 	}
 		
 }

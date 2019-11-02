@@ -36,4 +36,8 @@ public class Boulder extends Entity implements EntityObserver {
     	}
     	return canMove;
     }
+    
+    public Boolean canEnemyMove() {
+    	return false;
+    }
 }
