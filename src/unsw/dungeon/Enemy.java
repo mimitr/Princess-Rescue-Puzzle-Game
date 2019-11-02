@@ -2,6 +2,8 @@ package unsw.dungeon;
 
 import java.util.Objects;
 
+import java.util.List;
+
 public class Enemy extends Entity implements EntityObserver{
 	
 	private Boolean alive;
@@ -47,10 +49,16 @@ public class Enemy extends Entity implements EntityObserver{
 		Boolean canMove = true;
 		if(alive) {
 			//System.out.println("enemy is still alive");
-			Entity entity = dungeon.getEntityOnSquare(x, y);
-			if(Objects.nonNull(entity)) {
-				System.out.println("Enemy will encounter " + entity);
-				canMove = entity.canEnemyMove();
+			List<Entity> entities = dungeon.getEntityOnSquare(x, y);
+			if(!entities.isEmpty()) {
+				//System.out.println("Enemy will encounter " + entity);
+				for(Entity entity : entities) {
+					if(!entity.canEnemyMove()) {
+						canMove = false;
+						break;
+					}
+				}
+				//canMove = entity.canEnemyMove();
 			}
 		} else {
 			canMove = false;

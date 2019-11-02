@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
 public interface GoalComponent {
-	public Boolean complete();
+	public Boolean completed();
+	public Boolean addSubGoal(GoalComponent goal);
 }
