@@ -18,11 +18,12 @@ public class Portal extends Entity {
 			Dungeon dungeon = player.getDungeon();
 			Portal otherPortal = dungeon.getOtherPortal(this);
 			if(Objects.nonNull(otherPortal)) {
-				System.out.println(otherPortal.getX());
-				System.out.println(otherPortal.getY());
+				System.out.println("Other portal is here...");
+				//System.out.println(otherPortal.getX());
+				//System.out.println(otherPortal.getY());
 				if(player.canMove(otherPortal.getX() + left + right, otherPortal.getY() + up + down, up, down, left, right)) {
-					//System.out.println(otherPortal.getX());
-					//System.out.println(otherPortal.getY());
+					System.out.println(otherPortal.getX());
+					System.out.println(otherPortal.getY());
 					player.x().set(otherPortal.getX());
 					player.y().set(otherPortal.getY());
 					//return true;
