@@ -96,7 +96,10 @@ public class Dungeon {
     	*/
     	for(Portal other : portals) {
     		if(!other.equals(portal) && other.getID() == portal.getID()) {
+    			System.out.println(other.getX());
+    			System.out.println(other.getY());
     			otherPortal = other;
+    			break;
     		}
     	}
     	return otherPortal;
