@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HasSword implements PlayerState {
 	
 	private Player player;
@@ -19,8 +22,15 @@ public class HasSword implements PlayerState {
 	}
 	
 	public void putDown() {
-		player.detach();
-		player.setState(player.getNoWeaponState());
+		List<Entity> entities = new ArrayList<>();
+		entities = player.getDungeon().getEntityOnSquare(player.getX(), player.getY());
+		System.out.println(entities.size());
+		if(entities.size() == 1) {
+			player.detach();
+			player.setState(player.getNoWeaponState());
+		}
+		//player.detach();
+		//player.setState(player.getNoWeaponState());
 	}
 	
 	public Boolean activeWeapon() {

@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.util.Objects;
 import java.util.ArrayList;
+import java.util.List;
 /**
  * The player entity
  * @author Robert Clifton-Everest
@@ -145,14 +146,20 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     
     public boolean canMove(int x, int y, int up, int down, int left, int right) {
     	//System.out.println("inside can move");
-    	Entity entity = null;
+    	List<Entity> entities = new ArrayList<>();
     	Boolean canMove = true;
     	//System.out.println(dungeon);
-		entity = dungeon.getEntityOnSquare(x, y);
+		entities = dungeon.getEntityOnSquare(x, y);
 		//System.out.println(entity);
-		if(Objects.nonNull(entity)) {
+		if(!entities.isEmpty()) {
 			//System.out.println("shouldn't be here");
-			canMove = entity.canPlayerMove(this, up, down, left, right);
+			for(Entity entity : entities) {
+				if(!entity.canPlayerMove(this, up, down, left, right)) {
+					canMove = false;
+					break;
+				}
+				//canMove = entity.canPlayerMove(this, up, down, left, right);
+			}
 		}
 			/*
 			switch(entity.name()) {
@@ -246,8 +253,24 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     public void checkSameSquare() {
     	// check if there is any entity on the same square as the player
     	System.out.println("Checking same square");
-    	Entity entity = null;
-    	entity = dungeon.getEntityOnSquare(getX(), getY());
+    	List<Entity> entities = new ArrayList<>();
+    	entities = dungeon.getEntityOnSquare(getX(), getY());
+    	
+    	if(!entities.isEmpty()) {
+    		//System.out.println("Entity on the same square is " + entity);
+    		for(Entity entity : entities) {
+	    		if(entity.canBePickedUp()) {
+	    			System.out.println("can be picked up");
+	    			pickUp(entity);
+	    			break;
+	    		} else {
+	    			entity.canPlayerMove(this, 0, 0, 0, 0);
+	    			//entity.canEnemyMove();
+	    		}
+    		}
+    	}
+    	
+    	/*
     	if(Objects.nonNull(entity)) {
     		System.out.println("Entity on the same square is " + entity);
     		if(entity.canBePickedUp()) {
@@ -258,6 +281,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     			//entity.canEnemyMove();
     		}
     	}
+    	*/
     }
     
     public void increaseTreasureAmount() {
