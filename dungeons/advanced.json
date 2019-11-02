@@ -180,7 +180,7 @@
     {
       "x": 4,
       "y": 3,
-      "type": "invincibility"
+      "type": "wall"
     },
     {
       "x": 15,
@@ -205,7 +205,7 @@
     {
       "x": 17,
       "y": 4,
-      "type": "sword"
+      "type": "wall"
     },
     {
       "x": 0,
@@ -363,39 +363,9 @@
       "type": "wall"
     },
     {
-      "x": 2,
-      "y": 10,
-      "id": 1,
-      "type": "portal"
-    },
-    {
-      "x": 14,
-      "y": 4,
-      "id": 1,
-      "type": "portal"
-    },
-    {
       "x": 3,
       "y": 10,
       "type": "wall"
-    },
-    {
-      "x": 2,
-      "y": 10,
-      "id": 1,
-      "type": "portal"
-    },
-    {
-      "x": 14,
-      "y": 10,
-      "id": 2,
-      "type": "portal"
-  	},
-  	{
-      "x": 12,
-      "y": 14,
-      "id": 2,
-      "type": "portal"
     },
     {
       "x": 5,
@@ -415,7 +385,7 @@
     {
       "x": 11,
       "y": 10,
-      "type": "enemy"
+      "type": "invincibility"
     },
     {
       "x": 17,
@@ -456,11 +426,6 @@
       "x": 12,
       "y": 11,
       "type": "wall"
-    },
-    {
-      "x": 13,
-      "y": 11,
-      "type": "sword"
     },
     {
       "x": 17,
@@ -645,3 +610,4 @@
     ]
   }
 }
+
