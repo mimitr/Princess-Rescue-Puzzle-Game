@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import java.util.List;
+
 public class FloorSwitch extends Entity implements EntityObserver {
 	
 	// Switches behave like empty squares, so other entities can appear on top of them. 
@@ -16,14 +18,27 @@ public class FloorSwitch extends Entity implements EntityObserver {
 	public Boolean getTriggered() {
 		return triggered;
 	}
+	
+	public Boolean canPlayerMove() {
+		return false;
+	}
 
 	public void setTriggered(Boolean triggered) {
 		this.triggered = triggered;
 	}
 	
-	@Override
+
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
 		
+	}
+	
+	public void checkBoulderOnTop(List<Boulder> boulders, int x, int y) {
+		for (Boulder boulder : boulders) {
+			if (boulder.onSquare(x, y)) {
+				triggered = true;
+			}
+		}
+		triggered = false;
 	}
 
 }
