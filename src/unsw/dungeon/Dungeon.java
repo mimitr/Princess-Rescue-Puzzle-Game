@@ -20,6 +20,7 @@ public class Dungeon {
     private List<Enemy> enemies;
     private List<Boulder> boulders;
     private List<Portal> portals;
+    private List<FloorSwitch> floorSwitches;
     private Player player;
 
     public Dungeon(int width, int height) {
@@ -31,6 +32,7 @@ public class Dungeon {
         this.boulders = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.portals = new ArrayList<>();
+        this.floorSwitches = new ArrayList<>();
     }
 
     public void addWall(Wall wall) {
@@ -47,6 +49,10 @@ public class Dungeon {
     
     public void addPortal(Portal portal) {
     	portals.add(portal);
+    }
+    
+    public void addSwitch(FloorSwitch floorSwitch) {
+    	floorSwitches.add(floorSwitch);
     }
     
     public int getWidth() {
@@ -103,6 +109,10 @@ public class Dungeon {
     		}
     	}
     	return otherPortal;
+    }
+    
+    public void notifySwitch() {
+    	
     }
     
     public int getTotalTreasureAmount() {

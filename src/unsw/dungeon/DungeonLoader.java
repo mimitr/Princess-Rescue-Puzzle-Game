@@ -115,6 +115,17 @@ public abstract class DungeonLoader {
         	onLoad(potion);
         	entity = potion;
         	break;
+        case "switch":
+        	FloorSwitch floorSwitch = new FloorSwitch(x, y);
+        	onLoad(floorSwitch);
+        	entity = floorSwitch;
+        	dungeon.addSwitch(floorSwitch);
+        	break;
+        case "exit":
+        	Exit exit = new Exit(x, y);
+        	onLoad(exit);
+        	entity = exit;
+        	break;
         }
         
         if(entity != null) {
@@ -143,6 +154,10 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Portal portal);
     
     public abstract void onLoad(Enemy enemy);
+    
+    public abstract void onLoad(FloorSwitch floorSwitch);
+    
+    public abstract void onLoad(Exit exit);
     // TODO Create additional abstract methods for the other entities
 
 }

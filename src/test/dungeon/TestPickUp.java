@@ -44,13 +44,13 @@ class TestPickUp {
 		Treasure treasure1 = new Treasure (2, 2);
 		Treasure treasure2 = new Treasure (2, 3);
 		Key key = new Key(3, 4, 111);
-		Potion potion = new Potion(6, 6);
+		//Potion potion = new Potion(6, 6);
 		Sword sword = new Sword(5, 5);
 		
 		dungeon.addEntity(treasure1);
 		dungeon.addEntity(treasure2);
 		dungeon.addEntity(key);
-		dungeon.addEntity(potion);
+		//dungeon.addEntity(potion);
 		dungeon.addEntity(sword);
 		
 		dungeon.setPlayer(player);
@@ -135,8 +135,8 @@ class TestPickUp {
 		assertEquals(player.getX(), 6);
 		assertEquals(player.getY(), 7);
 		
-		assertEquals(potion.getX(), 6);
-		assertEquals(potion.getY(), 7);
+	//	assertEquals(potion.getX(), 6);
+	//	assertEquals(potion.getY(), 7);
 	}
 	
 
