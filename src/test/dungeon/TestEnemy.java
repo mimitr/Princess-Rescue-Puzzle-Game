@@ -5,6 +5,7 @@ import unsw.dungeon.Dungeon;
 import unsw.dungeon.Player;
 import unsw.dungeon.Wall;
 import unsw.dungeon.Enemy;
+import unsw.dungeon.Sword;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +24,8 @@ class TestEnemy {
 	void test() {
 		Dungeon dungeon = new Dungeon(9, 9);
 		Player player = new Player(dungeon, 1, 1);
+		Sword sword = new Sword(2, 1);
+		dungeon.addEntity(sword);
 		
 		Enemy e1 = new Enemy(dungeon, 1, 6);
 		Enemy e2 = new Enemy(dungeon, 3, 4);
@@ -149,7 +152,6 @@ class TestEnemy {
 		assertEquals(e1.getX(), 1);
 		assertEquals(e1.getY(), 3);
 		
-		//assertEquals(e2.stillAlive(), false);
 		assertEquals(e2.getX(), 2);
 		assertEquals(e2.getY(), 3);
 		
