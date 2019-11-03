@@ -6,11 +6,9 @@ import java.util.List;
 public class CompositeGoal implements GoalComponent {
 	private List<GoalComponent> goals;
 	private Boolean andCondition;
-	private Boolean completed;
 	
 	public CompositeGoal(Boolean andCondition) {
 		goals = new ArrayList<>();
-		completed = false;
 		this.andCondition = andCondition;
 	}
 	
@@ -35,7 +33,6 @@ public class CompositeGoal implements GoalComponent {
 			}
 			return completed;
 		}
-		//return completed;
 	}
 	
 	public Boolean addSubGoal(GoalComponent goal) {

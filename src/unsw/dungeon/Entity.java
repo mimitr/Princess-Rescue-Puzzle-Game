@@ -11,8 +11,6 @@ import javafx.beans.property.BooleanProperty;
  */
 public class Entity {
 
-    // IntegerProperty is used so that changes to the entities position can be
-    // externally observed.
     private IntegerProperty x, y;
 
     /**
@@ -42,12 +40,10 @@ public class Entity {
     }
    
     public Boolean onSquare(int x, int y) {
-    	//System.out.println("on square");
-    	//System.out.println(name());
+
     	if(x == x().get() && y == y().get()) {
     		return true;
     	}
-    	//System.out.println("return false");
     	return false;
     }
     

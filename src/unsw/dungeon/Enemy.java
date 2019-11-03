@@ -17,12 +17,11 @@ public class Enemy extends Entity implements EntityObserver{
 	} 
 	
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
-		// depends on whether player has potion or not
-		System.out.println("adf");
+		System.out.println("update");
 	}
 	
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
-		if(player.getX() == getX() && player.getY() == getY()) {
+		if(player.getX() == getX() && player.getY() == getY() && alive) {
 			if(!player.killEnemy()) {
 				player.setAlive(false);
 				return false;
@@ -37,7 +36,7 @@ public class Enemy extends Entity implements EntityObserver{
 	public Boolean stillAlive() {
 		return alive;
 	}
-	// strategy pattern
+
 	public void move(Player player) {
 		strategy.move(player, this);
 	}
@@ -49,17 +48,14 @@ public class Enemy extends Entity implements EntityObserver{
 	public Boolean canEnemyMoveTo(int x, int y) {
 		Boolean canMove = true;
 		if(alive) {
-			//System.out.println("enemy is still alive");
 			List<Entity> entities = dungeon.getEntityOnSquare(x, y);
 			if(!entities.isEmpty()) {
-				//System.out.println("Enemy will encounter " + entity);
 				for(Entity entity : entities) {
 					if(!entity.canEnemyMove()) {
 						canMove = false;
 						break;
 					}
 				}
-				//canMove = entity.canEnemyMove();
 			}
 		} else {
 			canMove = false;
@@ -72,6 +68,9 @@ public class Enemy extends Entity implements EntityObserver{
 	}
 	
 	public Boolean canEnemyMove() {
-		return false;
+		if(alive) {
+			return false;
+		}
+		return true;
 	}
 }
