@@ -3,6 +3,7 @@ package test.dungeon;
 import unsw.dungeon.Dungeon;
 
 import unsw.dungeon.Player;
+import unsw.dungeon.Sword;
 import unsw.dungeon.Wall;
 import unsw.dungeon.Enemy;
 
@@ -23,6 +24,8 @@ class TestEnemy {
 	void test() {
 		Dungeon dungeon = new Dungeon(9, 9);
 		Player player = new Player(dungeon, 1, 1);
+		Sword sword = new Sword(2, 1);
+		dungeon.addEntity(sword);
 		
 		Enemy e1 = new Enemy(dungeon, 1, 6);
 		Enemy e2 = new Enemy(dungeon, 3, 4);
@@ -35,7 +38,12 @@ class TestEnemy {
 		dungeon.addEnemy(e3);
 		dungeon.addEnemy(e4);
 		dungeon.addEnemy(e5);
-		
+		//dungeon.addEntity(player);
+		dungeon.addEntity(e1);
+		dungeon.addEntity(e2);
+		dungeon.addEntity(e3);
+		dungeon.addEntity(e4);
+		dungeon.addEntity(e5);
 		
 		// create vertical walls
 		int x, y;
@@ -130,6 +138,8 @@ class TestEnemy {
 		assertEquals(e2.getX(), 2);
 		assertEquals(e2.getY(), 3);
 		
+		assertFalse(e2.stillAlive());
+		System.out.println("---------------------------");
 		assertEquals(e3.getX(), 3);
 		assertEquals(e3.getY(), 4);
 		
@@ -146,26 +156,132 @@ class TestEnemy {
 		assertEquals(player.getX(), 1);
 		assertEquals(player.getY(), 3);
 		
-		assertEquals(e1.getX(), 1);
+		assertEquals(e1.getX(), 1); // enemy d1 dies
 		assertEquals(e1.getY(), 3);
 		
-		//assertEquals(e2.stillAlive(), false);
-		assertEquals(e2.getX(), 2);
+		assertFalse(e1.stillAlive());
+
+		assertEquals(e2.getX(), 2); // enemy e2 dies
 		assertEquals(e2.getY(), 3);
+		System.out.println("---------------------------");
+		assertFalse(e2.stillAlive());
 		
-		//assertFalse(e2.stillAlive());
-		assertEquals(e3.getX(), 3);
+		assertEquals(e3.getX(), 2);
 		assertEquals(e3.getY(), 4);
 		
-		assertEquals(e4.getX(), 4);
+		assertEquals(e4.getX(), 3);
 		assertEquals(e4.getY(), 2);
 		
-		assertEquals(e5.getX(), 7);
+		assertEquals(e5.getX(), 6);
 		assertEquals(e5.getY(), 3);
 		
+		/*
+		 * the player moves down
+		 */
+		player.moveDown();
+		assertEquals(player.getX(), 1);
+		assertEquals(player.getY(), 4);
 		
+		assertEquals(e1.getX(), 1); // enemy d1 dies
+		assertEquals(e1.getY(), 3);
 		
+		assertFalse(e1.stillAlive());
+
+		assertEquals(e2.getX(), 2); // enemy e2 dies
+		assertEquals(e2.getY(), 3);
 		
+		assertFalse(e2.stillAlive());
+		
+		assertEquals(e3.getX(), 1); // enemy e3 dies
+		assertEquals(e3.getY(), 4);
+		System.out.println("---------------------------");
+		assertFalse(e3.stillAlive());
+		
+		assertEquals(e4.getX(), 2);
+		assertEquals(e4.getY(), 2);
+		
+		assertEquals(e5.getX(), 6);
+		assertEquals(e5.getY(), 4);
+		
+		/*
+		 * the player moves right
+		 */
+		player.moveRight();
+		assertEquals(player.getX(), 2);
+		assertEquals(player.getY(), 4);
+		
+		assertEquals(e1.getX(), 1); // enemy d1 dies
+		assertEquals(e1.getY(), 3);
+		
+		assertFalse(e1.stillAlive());
+
+		assertEquals(e2.getX(), 2); // enemy e2 dies
+		assertEquals(e2.getY(), 3);
+		
+		assertFalse(e2.stillAlive());
+		
+		assertEquals(e3.getX(), 1); // enemy e3 dies
+		assertEquals(e3.getY(), 4);
+		
+		assertFalse(e3.stillAlive());
+		
+		assertEquals(e4.getX(), 2);
+		assertEquals(e4.getY(), 3);
+		
+		assertEquals(e5.getX(), 5);
+		assertEquals(e5.getY(), 4);
+		
+		/*
+		 * the player moves up
+		 */
+		player.moveUp();
+		assertEquals(player.getX(), 2);
+		assertEquals(player.getY(), 3);
+		
+		assertEquals(e1.getX(), 1); // enemy d1 dies
+		assertEquals(e1.getY(), 3);
+		
+		assertFalse(e1.stillAlive());
+
+		assertEquals(e2.getX(), 2); // enemy e2 dies
+		assertEquals(e2.getY(), 3);
+		
+		assertFalse(e2.stillAlive());
+		
+		assertEquals(e3.getX(), 1); // enemy e3 dies
+		assertEquals(e3.getY(), 4);
+		
+		assertFalse(e3.stillAlive());
+		
+		assertEquals(e4.getX(), 2); // enemy e4 dies
+		assertEquals(e4.getY(), 3);
+		
+		assertFalse(e4.stillAlive());
+		
+		assertEquals(e5.getX(), 4);
+		assertEquals(e5.getY(), 4);
+		
+		/*
+		 * the player moves to down 
+		 */
+		player.moveDown();
+		assertEquals(player.getX(), 2);
+		assertEquals(player.getY(), 4);
+		
+		assertEquals(e5.getX(), 3);
+		assertEquals(e5.getY(), 4);
+		
+		/*
+		 * the player moves right to kill e5
+		 */
+		player.moveRight();
+		assertEquals(player.getX(), 3);
+		assertEquals(player.getY(), 4);
+		
+		assertEquals(e5.getX(), 3);
+		assertEquals(e5.getY(), 4);
+		
+		assertFalse(e5.stillAlive()); // enemy e5 dies
 	}
 
 }

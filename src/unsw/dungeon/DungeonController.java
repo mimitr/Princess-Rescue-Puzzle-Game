@@ -70,9 +70,9 @@ public class DungeonController {
             break;
         }
         if(player.goalCompleted()) {
-        	System.out.println("Goal completed !!!!!!!!!!!!!!!!!!!!!!!");
+        	System.out.println("Goal completed :)");
         } else {
-        	System.out.println("FUCK OFF");
+        	System.out.println("Goal not completed :(");
         }
     }
 

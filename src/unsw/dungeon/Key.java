@@ -25,8 +25,6 @@ public class Key extends Entity implements EntityObserver {
 	
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
 		
-		// move along with the player
-		//x().s
 		x().setValue(((Player) player).getX());
 		y().setValue(((Player) player).getY());
 	}

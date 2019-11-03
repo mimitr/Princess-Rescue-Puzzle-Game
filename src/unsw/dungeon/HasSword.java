@@ -12,11 +12,7 @@ public class HasSword implements PlayerState {
 	}
 	
 	public void pickUp(Entity entity) {
-		// check if the entity can be picked up
-		// if the entity is anything other than treasure then the player cannot pick it up
 		if(entity.name().equals("treasure")) {
-			// player can pick it up
-			// treasure will just disappear from the dungeon
 			player.increaseTreasureAmount();
 		}
 	}
@@ -29,8 +25,6 @@ public class HasSword implements PlayerState {
 			player.detach();
 			player.setState(player.getNoWeaponState());
 		}
-		//player.detach();
-		//player.setState(player.getNoWeaponState());
 	}
 	
 	public Boolean activeWeapon() {
@@ -38,17 +32,15 @@ public class HasSword implements PlayerState {
 	}
 	
 	public Boolean killEnemy() {
-		// if the sword still has remaining hits
-		// make the enemy disappear from the dungeon
+		
 		Sword sword = (Sword)player.getCarriedEntity();
 		if(sword.getRemainingHits() > 0) {
-			System.out.println("Player can still kill an enemy");
 			sword.setRemainingHits();
 			return true;
 		} else {
 			player.setState(player.getNoWeaponState());
+			player.detach();
 			return false;
 		}
-		//return true;
 	}
 }

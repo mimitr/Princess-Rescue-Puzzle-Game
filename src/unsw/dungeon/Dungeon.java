@@ -87,30 +87,21 @@ public class Dungeon {
     }
     
     public List<Entity> getEntityOnSquare(int x, int y) {
-    	//System.out.println("inside get entity on square");
+
     	List<Entity> e = new ArrayList<>();
     	for(Entity entity : entities) {
-    		//System.out.println(entity.name());
     		if(entity.onSquare(x, y) && !entity.equals(player)) {
     			System.out.println(entity.name());
     			e.add(entity);
-    			//break;
     		}
     	}
-    	//System.out.println("entity is null");
+
     	return e;
     }
     
     public Portal getOtherPortal(Portal portal) {
     	Portal otherPortal = null;
-    	/*
-    	for(Entity entity : entities) {
-    		if(entity.getClass().equals(portal.getClass()) && !portal.equals((Portal)entity) && portal.getID() == ((Portal)entity).getID()) {
-    			otherPortal = (Portal) entity;
-    			break;
-    		}
-    	}
-    	*/
+ 
     	for(Portal other : portals) {
     		if(!other.equals(portal) && other.getID() == portal.getID()) {
     			System.out.println(other.getX());
