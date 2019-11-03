@@ -195,6 +195,4 @@ public abstract class DungeonLoader {
     public abstract void onLoad(FloorSwitch floorSwitch);
     
     public abstract void onLoad(Exit exit);
-    // TODO Create additional abstract methods for the other entities
-
 }

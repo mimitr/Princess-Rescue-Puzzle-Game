@@ -43,6 +43,8 @@ public class TestPushingBoulders {
 		Boulder boulder2 = new Boulder(4, 4);
 		dungeon.addEntity(boulder1);
 		dungeon.addEntity(boulder2);
+		dungeon.addBoulder(boulder1);
+		dungeon.addBoulder(boulder2);
 		
 		dungeon.setPlayer(player);
 		assertEquals(player.getX(), 1);

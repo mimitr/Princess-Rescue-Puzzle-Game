@@ -13,7 +13,8 @@ public class HasSword implements PlayerState {
 	
 	public void pickUp(Entity entity) {
 		if(entity.name().equals("treasure")) {
-			player.increaseTreasureAmount();
+			//player.increaseTreasureAmount();
+			entity.pickedUp(player);
 		}
 	}
 	

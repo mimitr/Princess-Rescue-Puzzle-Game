@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeGoal implements GoalComponent {
+	/**
+	 * a list of subgoals
+	 */
 	private List<GoalComponent> goals;
+	
+	/**
+	 * true if the "AND" condition exists
+	 */
 	private Boolean andCondition;
 	
 	public CompositeGoal(Boolean andCondition) {
@@ -12,6 +19,10 @@ public class CompositeGoal implements GoalComponent {
 		this.andCondition = andCondition;
 	}
 	
+	/**
+	 * check if the composite goal has been completed
+	 * @return true/ false
+	 */
 	public Boolean completed() {
 		Boolean completed;
 		if(andCondition) {
@@ -35,6 +46,11 @@ public class CompositeGoal implements GoalComponent {
 		}
 	}
 	
+	/**
+	 * add the subgoal to the goal list
+	 * @param goal
+	 * @return true if was added successfully
+	 */
 	public Boolean addSubGoal(GoalComponent goal) {
 		goals.add(goal);
 		return true;

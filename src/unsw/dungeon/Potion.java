@@ -10,7 +10,7 @@ public class Potion extends Entity implements EntityObserver{
 	
 	public Potion(Dungeon dungeon, int x, int y) {
 		super(x, y);
-		counter = 10;
+		counter = 11;
 		this.dungeon = dungeon;
 	}
 

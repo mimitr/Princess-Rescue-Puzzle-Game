@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 /*
  * Epic story 4
  * US 1
+ * Testing picking up different objects
  */
 
 class TestPickUp {

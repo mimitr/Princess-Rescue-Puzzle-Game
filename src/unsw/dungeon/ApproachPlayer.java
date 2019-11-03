@@ -1,6 +1,12 @@
 package unsw.dungeon;
 
 public class ApproachPlayer implements EnemyMoveStrategy {
+	
+	/**
+	 * logic of how the enemy moves depends on how the player moves
+	 * @param player
+	 * @param enemy
+	 */
 	public void move(Player player, Enemy enemy) {
 		Boolean left;
 		Boolean right;

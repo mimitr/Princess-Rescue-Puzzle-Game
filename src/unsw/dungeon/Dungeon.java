@@ -39,73 +39,129 @@ public class Dungeon {
         this.exit = null;
     }
 
+    /**
+     * add an exit to the exit list
+     * @param exit
+     */
     public void addExit(Exit exit) {
     	this.exit = exit;
     }
     
+    /**
+     * add a treasure to the treasure list
+     * @param treasure
+     */
     public void addTreasure(Treasure treasure) {
     	treasures.add(treasure);
     }
+    
+    /**
+     * add a wall to the wall list
+     * @param wall
+     */
     public void addWall(Wall wall) {
     	walls.add(wall);
     }
     
+    /**
+     * add a boulder to the boulder list
+     * @param boulder
+     */
     public void addBoulder(Boulder boulder) {
     	boulders.add(boulder);
     }
     
+    /**
+     * add an enemy to the enemy list
+     * @param enemy
+     */
     public void addEnemy(Enemy enemy) {
     	enemies.add(enemy);
     }
     
+    /**
+     * add a portal to the portal list
+     * @param portal
+     */
     public void addPortal(Portal portal) {
     	portals.add(portal);
     }
     
+    /**
+     * add a switch to the switch list
+     * @param floorSwitch
+     */
     public void addSwitch(FloorSwitch floorSwitch) {
     	floorSwitches.add(floorSwitch);
     }
     
+    /**
+     * 
+     * @return the width of the dungeon
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * 
+     * @return the height of the dungeon
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * 
+     * @return the player
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * set the player
+     * @param player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+	/**
+	 * add an entity into the entity list
+	 * @param entity
+	 */
     public void addEntity(Entity entity) {
         entities.add(entity);
     }
     
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return the list of entities in the specific square
+     */
     public List<Entity> getEntityOnSquare(int x, int y) {
 
     	List<Entity> e = new ArrayList<>();
     	for(Entity entity : entities) {
     		if(entity.onSquare(x, y) && !entity.equals(player)) {
-    			System.out.println(entity.name());
     			e.add(entity);
     		}
     	}
-
     	return e;
     }
     
+    /**
+     * get the other corresponding portal with the same ID
+     * @param portal
+     * @return the other portal
+     */
     public Portal getOtherPortal(Portal portal) {
     	Portal otherPortal = null;
  
     	for(Portal other : portals) {
     		if(!other.equals(portal) && other.getID() == portal.getID()) {
-    			System.out.println(other.getX());
-    			System.out.println(other.getY());
     			otherPortal = other;
     			break;
     		}

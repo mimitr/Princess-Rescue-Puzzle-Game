@@ -14,6 +14,7 @@ import unsw.dungeon.Door;
 /*
  * Epic story 3
  * US 1
+ * Testing picking up the key and using the key to move through the corresponding door
  */
 
 public class TestDoor {

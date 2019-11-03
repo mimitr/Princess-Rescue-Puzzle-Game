@@ -33,6 +33,10 @@ public class Enemy extends Entity implements EntityObserver{
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @return true, if the enemy is alive, false otherwise
+	 */
 	public Boolean stillAlive() {
 		return alive;
 	}

@@ -6,7 +6,15 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class Door extends Entity {
+	/**
+	 * each door has an ID
+	 */
 	private int id;
+	
+	/**
+	 * true if the door is opened
+	 * false otherwise
+	 */
 	private Boolean open;
 	public Door(int x, int y, int id) {
         super(x, y);
@@ -14,6 +22,10 @@ public class Door extends Entity {
         open = false;
     }
 	
+	/**
+	 * get the door ID
+	 * @return id
+	 */
 	public int doorID() {
 		return id;
 	}
@@ -22,6 +34,18 @@ public class Door extends Entity {
     	return "door";
     }
     
+    /**
+     * check if the player can more through the door
+     * the player can only move through if he carries the key with the matching ID
+     * @param player
+     * @param up
+     * @param down
+     * @param left
+     * @param right
+     * 
+     * @return true/ false
+     * 
+     */
     public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
     	// determine player state
     	Boolean canMove = true;

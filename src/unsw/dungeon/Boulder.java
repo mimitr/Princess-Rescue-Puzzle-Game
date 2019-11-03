@@ -4,17 +4,28 @@ import java.util.Objects;
 
 public class Boulder extends Entity implements EntityObserver {
 	
+	/**
+	 * check if the boulder can move further
+	 * initialise to false
+	 */
 	private Boolean canMoveFurther = false;
 	
 	public Boulder(int x, int y) {
         super(x, y);
     }
 	
+	/**
+	 * updates the boulder position correspondingly as the player pushes
+	 */
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
 		x().setValue(getX() + left + right);
 		y().setValue(getY() + up + down);
 	}
 	
+	/**
+	 * check if the boulder can move further (no walls etc.)
+	 * @return true/false
+	 */
 	public Boolean canMoveFurther() {
 		return canMoveFurther;
 	}
@@ -37,6 +48,10 @@ public class Boulder extends Entity implements EntityObserver {
     	return canMove;
     }
     
+    /**
+     * check if the enemy can move
+     * @return true/false
+     */
     public Boolean canEnemyMove() {
     	return false;
     }

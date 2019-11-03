@@ -140,7 +140,6 @@ class TestEnemy {
 		assertEquals(e2.getY(), 3);
 		
 		assertFalse(e2.stillAlive());
-		System.out.println("---------------------------");
 		assertEquals(e3.getX(), 3);
 		assertEquals(e3.getY(), 4);
 		
@@ -164,7 +163,6 @@ class TestEnemy {
 
 		assertEquals(e2.getX(), 2); // enemy e2 dies
 		assertEquals(e2.getY(), 3);
-		System.out.println("---------------------------");
 		assertFalse(e2.stillAlive());
 		
 		assertEquals(e3.getX(), 2);
