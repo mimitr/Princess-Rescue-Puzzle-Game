@@ -122,10 +122,7 @@ public abstract class DungeonLoader {
         	dungeon.addSwitch(floorSwitch);
         	break;
         case "exit":
-        	Exit exit = new Exit(x, y);
-        	onLoad(exit);
-        	entity = exit;
-        	break;
+ 
         }
         
         if(entity != null) {

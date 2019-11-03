@@ -127,6 +127,14 @@ public class Dungeon {
     	return total;
     }
     
+    /*public Boolean getEntityOnSwitch(int x, int y)  {
+    	for (FloorSwitch floorSwitch : floorSwitches) {
+    		if ((floorSwitch.getX() == x && floorSwitch.getY() == y) {
+    			
+    		}
+    	}
+    }*/
+    
     public void enemyMoveAway() {
     	for(Enemy enemy : enemies) {
     		EnemyMoveStrategy newStrategy = new MoveAway();
