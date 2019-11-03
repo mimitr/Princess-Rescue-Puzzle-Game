@@ -15,7 +15,7 @@ public class Potion extends Entity implements EntityObserver{
 	
 	public Potion(Dungeon dungeon, int x, int y) {
 		super(x, y);
-		counter = 20;
+		counter = 10;
 		this.dungeon = dungeon;
 	}
 
@@ -49,6 +49,10 @@ public class Potion extends Entity implements EntityObserver{
 	
 	public Boolean canBePickedUp() {
 		return true;
+	}
+	
+	public Boolean canEnemyMove() {
+		return false;
 	}
 
 	public void pickedUp(Player player) {

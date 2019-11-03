@@ -104,7 +104,7 @@ public class ApproachPlayer implements EnemyMoveStrategy {
 				} else if(up) {
 					enemy.y().set(enemy.getY() - 1);
 				}
-			} else if(player.getX() > enemy.getX()){
+			} else {
 				if(down) {
 					enemy.y().set(enemy.getY() + 1);
 				} else if(right) {

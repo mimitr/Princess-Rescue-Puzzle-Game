@@ -21,6 +21,8 @@ public class Dungeon {
     private List<Boulder> boulders;
     private List<Portal> portals;
     private List<FloorSwitch> floorSwitches;
+    private List<Treasure> treasures;
+    private Exit exit;
     private Player player;
 
     public Dungeon(int width, int height) {
@@ -33,8 +35,17 @@ public class Dungeon {
         this.enemies = new ArrayList<>();
         this.portals = new ArrayList<>();
         this.floorSwitches = new ArrayList<>();
+        this.treasures = new ArrayList<>();
+        this.exit = null;
     }
 
+    public void addExit(Exit exit) {
+    	this.exit = exit;
+    }
+    
+    public void addTreasure(Treasure treasure) {
+    	treasures.add(treasure);
+    }
     public void addWall(Wall wall) {
     	walls.add(wall);
     }
@@ -153,5 +164,46 @@ public class Dungeon {
     	for(Enemy enemy : enemies) {
     		enemy.move(player);
     	}
+    }
+    
+    public Boolean treasureGoalCompleted() {
+    	Boolean completed = true;
+    	for(Treasure treasure : treasures) {
+    		if(!treasure.isPickedUp()) {
+    			completed = false;
+    			break;
+    		}
+    	}
+    	return completed;
+    }
+    
+    public Boolean exitGoalCompleted() {
+    	Boolean completed = true;
+    	if(!(exit.getX() == player.getX()) || !(exit.getY() == player.getY())) {
+    		completed = false;
+    	}
+    	return completed;
+    }
+    
+    public Boolean boulderGoalCompleted() {
+    	Boolean completed = true;
+    	for(FloorSwitch s : floorSwitches) {
+    		if(!s.getTriggered()) {
+    			completed = false;
+    			break;
+    		}
+    	}
+    	return completed;
+    }
+    
+    public Boolean enemyGoalCompleted() {
+    	Boolean completed = true;
+    	for(Enemy enemy : enemies) {
+    		if(enemy.stillAlive()) {
+    			completed = false;
+    			break;
+    		}
+    	}
+    	return completed;
     }
 }

@@ -2,14 +2,13 @@ package unsw.dungeon;
 
 import java.util.Objects;
 
-public class Treasure extends Entity implements EntityObserver {
+public class Treasure extends Entity {
 
+	private Boolean pickedUp;
+	
 	public Treasure(int x, int y) {
 		super(x, y);
-	}
-
-	public void update(PlayerSubject player, int up, int down, int left, int right) {
-		
+		pickedUp = false;
 	}
 	
 	public Boolean canBePickedUp() {
@@ -26,6 +25,10 @@ public class Treasure extends Entity implements EntityObserver {
 	
 	public void pickedUp(Player player) {
 		player.increaseTreasureAmount();
+		pickedUp = true;
 	}
 	
+	public Boolean isPickedUp() {
+		return pickedUp;
+	}
 }
