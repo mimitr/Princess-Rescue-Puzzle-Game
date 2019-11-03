@@ -11,6 +11,11 @@ import unsw.dungeon.Dungeon;
 import unsw.dungeon.Enemy;
 import unsw.dungeon.Potion;
 
+/*
+ * Epic Story 1
+ * Testing the enemy moving AWAY from the player
+ * Testing the potion lasts only for 20 steps
+ */
 class TestEnemyMoveAway {
 
 	@Test
