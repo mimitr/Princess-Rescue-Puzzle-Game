@@ -44,6 +44,7 @@ public class DungeonController {
 
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
+        
 
     }
 
@@ -67,6 +68,11 @@ public class DungeonController {
         	break;
         default:
             break;
+        }
+        if(player.goalCompleted()) {
+        	System.out.println("Goal completed !!!!!!!!!!!!!!!!!!!!!!!");
+        } else {
+        	System.out.println("FUCK OFF");
         }
     }
 

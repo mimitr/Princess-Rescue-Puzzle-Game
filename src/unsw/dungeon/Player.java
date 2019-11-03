@@ -20,6 +20,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     private int treasureAmount;
     private GoalComponent goal;
     private Boolean alive;
+
     /**
      * Create a player positioned in square (x,y)
      * @param x
@@ -38,6 +39,16 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
         alive = true;
     }
     
+    public void setGoal(GoalComponent goal) {
+    	this.goal = goal;
+    }
+    
+    public Boolean goalCompleted() {
+    	if(Objects.nonNull(goal)) {
+    		return goal.completed();
+    	}
+    	return true;
+    }
     public Boolean stillAlive() {
     	return alive;
     }

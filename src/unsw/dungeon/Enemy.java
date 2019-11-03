@@ -27,6 +27,7 @@ public class Enemy extends Entity implements EntityObserver{
 				player.setAlive(false);
 				return false;
 			} else {
+				System.out.println("Enemy should die");
 				alive = false;
 			}
 		}

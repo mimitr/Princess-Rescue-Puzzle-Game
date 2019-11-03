@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeGoal implements GoalComponent {
@@ -8,6 +9,7 @@ public class CompositeGoal implements GoalComponent {
 	private Boolean completed;
 	
 	public CompositeGoal(Boolean andCondition) {
+		goals = new ArrayList<>();
 		completed = false;
 		this.andCondition = andCondition;
 	}

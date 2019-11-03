@@ -26,9 +26,10 @@ public class MoveAway implements EnemyMoveStrategy {
 					enemy.y().set(enemy.getY() - 1);
 				} else if(down) {
 					enemy.y().set(enemy.getY() + 1);
-				} else if(left) {
-					enemy.x().set(enemy.getX() - 1);
-				}
+				} 
+				//else if(left) {
+				//	enemy.x().set(enemy.getX() - 1);
+				//}
 				
 			} else {
 				// move to the right
@@ -43,9 +44,10 @@ public class MoveAway implements EnemyMoveStrategy {
 					enemy.y().set(enemy.getY() - 1);
 				} else if(down) {
 					enemy.y().set(enemy.getY() + 1);
-				} else if(right) {
-					enemy.x().set(enemy.getX() + 1);
-				}
+				} 
+				//else if(right) {
+				//	enemy.x().set(enemy.getX() + 1);
+				//}
 			}
 		} 
 		if(player.getY() < enemy.getY()) {
