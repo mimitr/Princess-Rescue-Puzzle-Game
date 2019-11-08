@@ -16,7 +16,8 @@ public class FloorSwitch extends Entity implements EntityObserver {
 		return triggered;
 	}
 	
-	public Boolean canPlayerMove() {
+	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
+		//System.out.println("123456");
 		return false;
 	}
 

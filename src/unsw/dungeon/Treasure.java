@@ -30,4 +30,8 @@ public class Treasure extends Entity {
 	public Boolean isPickedUp() {
 		return pickedUp;
 	}
+	
+	public String name() {
+		return "treasure";
+	}
 }

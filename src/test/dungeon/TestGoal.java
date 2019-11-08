@@ -124,6 +124,7 @@ class TestGoal {
 		String str = " { \"goal\": \"AND\", \"subgoals\": [{ \"goal\": \"enemies\"},{\"goal\": \"treasure\"}]}";
 		JSONObject jb = new JSONObject(str);
 		GoalComponent compositeGoal = getGoal(dungeon, jb);
+		player.setGoal(compositeGoal);
 		//System.out.println("_________________");
 		//System.out.println(compositeGoal);
 		//System.out.println("_________________");
@@ -148,7 +149,7 @@ class TestGoal {
 		}
 		
 		// create walls in the middle
-		for (x = 3; x < 6; x++) {
+		for (x = 4; x < 6; x++) {
 			Wall wall5 = new Wall(x, 3);
 			dungeon.addEntity(wall5);
 		}
@@ -184,6 +185,8 @@ class TestGoal {
 		 */
 		player.moveDown();
 		player.moveDown();
+		assertEquals(player.goalCompleted(), true);
+		assertEquals(compositeGoal.completed(), true);
 		System.out.println(player.getCarriedEntity());
 		
 	}

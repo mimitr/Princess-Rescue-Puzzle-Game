@@ -39,6 +39,10 @@ public class Boulder extends Entity implements EntityObserver {
     	if(Objects.isNull(player.getCarriedEntity())) {
     		player.attach((EntityObserver)this);
     		if(player.canMove(getX() + left + right, getY() + up + down, 0, 0, 0, 0)) {
+    			System.out.println(player.getX());
+    			System.out.println(player.getY());
+    			System.out.println(getX() + left + right);
+    			System.out.println(getY() + up + down);
     			canMove = true;
     			player.notifyEntity(up, down, left, right);
 				player.getDungeon().notifySwitch();

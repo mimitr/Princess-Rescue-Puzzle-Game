@@ -381,7 +381,8 @@
       "x": 11,
       "y": 10,
       "type": "invincibility"
-    }
+    },
+    {
       "x": 4,
       "y": 6,
       "type": "switch"

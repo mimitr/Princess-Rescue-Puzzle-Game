@@ -108,6 +108,11 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 	    	if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(1,0,0,0);
 	    	}
+	    	if(goalCompleted()) {
+	        	System.out.println("Goal completed :)");
+	        } else {
+	        	System.out.println("Goal not completed :(");
+	        }
     	}
     }
 
@@ -121,6 +126,11 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(0,1,0,0);
 	    	}
+	        if(goalCompleted()) {
+	        	System.out.println("Goal completed :)");
+	        } else {
+	        	System.out.println("Goal not completed :(");
+	        }
     	}
     }
 
@@ -134,6 +144,11 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(0,0,-1,0);
 	    	}
+	        if(goalCompleted()) {
+	        	System.out.println("Goal completed :)");
+	        } else {
+	        	System.out.println("Goal not completed :(");
+	        }
     	}
     }
 
@@ -147,6 +162,11 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(0,0,0,1);
 	    	}
+	        if(goalCompleted()) {
+	        	System.out.println("Goal completed :)");
+	        } else {
+	        	System.out.println("Goal not completed :(");
+	        }
     	}
     }
     
