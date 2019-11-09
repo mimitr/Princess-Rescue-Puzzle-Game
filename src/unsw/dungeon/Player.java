@@ -1,6 +1,10 @@
 package unsw.dungeon;
 
 import java.util.Objects;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -19,7 +23,8 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     private PlayerState currState = noWeaponState;
     private int treasureAmount;
     private GoalComponent goal;
-    private Boolean alive;
+    private BooleanProperty alive;
+    private BooleanProperty goalCompleted;
 
     /**
      * Create a player positioned in square (x,y)
@@ -36,25 +41,32 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
         hasKeyState = new HasKey(this);
         currState = noWeaponState;
         treasureAmount = 0;
-        alive = true;
+        alive = new SimpleBooleanProperty(true);
+        goalCompleted = new SimpleBooleanProperty(false);
     }
     
     public void setGoal(GoalComponent goal) {
     	this.goal = goal;
     }
     
-    public Boolean goalCompleted() {
-    	if(Objects.nonNull(goal)) {
-    		return goal.completed();
-    	}
-    	return true;
-    }
-    public Boolean stillAlive() {
+    public BooleanProperty getAliveProperty() {
     	return alive;
     }
     
+    public BooleanProperty goalCompleted() {
+    	if(Objects.nonNull(goal)) {
+    		goalCompleted.setValue(goal.completed());
+    		//return goal.completed();
+    	}
+    	return goalCompleted;
+    }
+    public Boolean stillAlive() {
+    	return alive.getValue();
+    }
+    
     public void setAlive(Boolean alive) {
-    	this.alive = alive;
+    	System.out.println("Player will be " + alive);
+    	this.alive.setValue(alive);
     }
     public PlayerState getCurrState() {
     	return currState;
@@ -102,52 +114,54 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     public void moveUp() {
     	// check the next square contains any entity
     	// wall, door, boulder
-    	if(alive) {
+    	if(stillAlive()) {
 	    	if(getY() > 0 && canMove(x().get(), y().get() - 1, -1, 0, 0, 0)) {
 	    		y().set(getY() - 1);
 	    	}
+	    	dungeon.enemyMove();
 	    	checkSameSquare();
 	    	if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(1,0,0,0);
 	    	}
-	    	dungeon.enemyMove();
     	}
         // after move to the next square, check if there is any entity0  
     }
 
     public void moveDown() {
-    	if(alive) {
+    	if(stillAlive()) {
+    		System.out.println(alive.getValue());
 	        if ((getY() < dungeon.getHeight() - 1) && canMove(x().get(), y().get() + 1, 0, 1, 0, 0))
 	            y().set(getY() + 1);
+	        dungeon.enemyMove();
 	        checkSameSquare();
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(0,1,0,0);
 	    	}
-	        dungeon.enemyMove();
+	        
     	}
     }
 
     public void moveLeft() {
-    	if(alive) {
+    	if(stillAlive()) {
 	        if (getX() > 0 && canMove(getX() - 1, getY(), 0, 0, -1, 0)) {
 	            x().set(getX() - 1);
-	            dungeon.enemyMove();
+	            //dungeon.enemyMove();
 	        }
 	        //System.out.println("Inside move left");
+	        dungeon.enemyMove();
 	        checkSameSquare();
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(0,0,-1,0);
 	    	}
-	        //dungeon.enemyMove();
     	}
     }
 
     public void moveRight() {
-    	if(alive) {
+    	if(stillAlive()) {
 	        if (getX() < dungeon.getWidth() - 1 && canMove(getX() + 1, getY(), 0, 0, 0, 1)) {
 	            x().set(getX() + 1);
-	            dungeon.enemyMove();
 	        }
+	        dungeon.enemyMove();
 	        checkSameSquare();
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
 	    		notifyEntity(0,0,0,1);
@@ -161,80 +175,15 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     	Boolean canMove = true;
     	//System.out.println(dungeon);
 		entities = dungeon.getEntityOnSquare(x, y);
-		//System.out.println(entity);
 		if(!entities.isEmpty()) {
-			//System.out.println("shouldn't be here");
 			for(Entity entity : entities) {
 				if(!entity.canPlayerMove(this, up, down, left, right)) {
 					canMove = false;
 					break;
 				}
-				//canMove = entity.canPlayerMove(this, up, down, left, right);
 			}
 		}
-			/*
-			switch(entity.name()) {
-		###	case "door":
-				// check if the door is closed or open
-				Door door = (Door) entity;
-				canMove = door.canPlayerMove(this);
-				if(!door.isOpen()) {
-					canMove = false;
-				}
-				if(Objects.nonNull(carriedEntity) && ((Entity)carriedEntity).name().equals("boudler")) {
-					canMove = false;
-				}
-				break;
-			case "boulder":
-				// make the boulder to move with the player in the same direction
-				// notify boulder here
-				System.out.println("Next square contains a boulder");
-				if(Objects.isNull(carriedEntity)) {
-					System.out.println("carrying nothing");
-					attach((EntityObserver)entity);
-					//if(!((Boulder)entity).canMoveFurther()) {
-					//	canMove = false;
-					//}
-					canMove = canMove(getX() + left + right, getY() + up + down, 0, 0, 0, 0);
-					if(canMove) {
-						System.out.println("can move");
-						notifyEntity(up, down, left, right);
-					}
-					// check if the boulder can move
-					detach();
-				} else {
-					canMove = false;
-				}
-				System.out.println("After checking next square of the boulder");
-				//canMove = false;
-				break;
-		###	case "wall":
-				//System.out.println("there is a wall");
-				canMove = false;
-				break;
-		###	case "key":
-				System.out.println("Next square contains a key");
-				System.out.println("Carrying " + carriedEntity);
-				if(Objects.nonNull(carriedEntity) && ((Entity)carriedEntity).name().equals("boulder")) {
-					canMove = false;
-				}
-				// add key to player's bag
-				break;
-			case "sword":
-				break;
-			case "potion":
-				break;
-			case "portal":
-				break;
-			case "exit"	:
-				break;
-			}
-		}
-		if(entity == null) {
-			System.out.println("null null");
-		}
-		*/
-		//System.out.println("can move");
+		
 		return canMove;
     }
     public String name() {
@@ -263,36 +212,28 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
      
     public void checkSameSquare() {
     	// check if there is any entity on the same square as the player
-    	System.out.println("Checking same square");
+    	System.out.println("-----------------------------------");
+    	System.out.println("CHECKING THE FK SAME SQUARE");
     	List<Entity> entities = new ArrayList<>();
     	entities = dungeon.getEntityOnSquare(getX(), getY());
-    	
+    	System.out.println(entities);
     	if(!entities.isEmpty()) {
-    		//System.out.println("Entity on the same square is " + entity);
+    		
     		for(Entity entity : entities) {
+    			System.out.println("Entity on the same square is " + entity);
 	    		if(entity.canBePickedUp()) {
 	    			System.out.println("can be picked up");
 	    			pickUp(entity);
 	    			break;
 	    		} else {
+	    			System.out.println("Player is current state is " + currState);
+	    			System.out.println("Playing meet " + entity);
 	    			entity.canPlayerMove(this, 0, 0, 0, 0);
 	    			//entity.canEnemyMove();
 	    		}
     		}
     	}
-    	
-    	/*
-    	if(Objects.nonNull(entity)) {
-    		System.out.println("Entity on the same square is " + entity);
-    		if(entity.canBePickedUp()) {
-    			System.out.println("can be picked up");
-    			pickUp(entity);
-    		} else {
-    			entity.canPlayerMove(this, 0, 0, 0, 0);
-    			//entity.canEnemyMove();
-    		}
-    	}
-    	*/
+    	System.out.println("-----------------------------------");
     }
     
     public void increaseTreasureAmount() {

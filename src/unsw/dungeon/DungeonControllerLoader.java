@@ -59,6 +59,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
+        //player.getAliveProperty();
         addEntity(player, view);
     }
 

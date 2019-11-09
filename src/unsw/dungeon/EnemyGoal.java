@@ -1,8 +1,5 @@
 package unsw.dungeon;
 
-<<<<<<< HEAD
-
-=======
 public class EnemyGoal implements GoalComponent {
 	private Boolean completed;
 	private Dungeon dungeon;
@@ -19,4 +16,3 @@ public class EnemyGoal implements GoalComponent {
 		return false;
 	}
 }
->>>>>>> 0e2eb668f895b93789111969a7476df55da3e491

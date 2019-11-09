@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import org.json.JSONArray;
@@ -29,6 +30,9 @@ public abstract class DungeonLoader {
      * Parses the JSON to create a dungeon.
      * @return
      */
+    public JSONObject getJSON() {
+    	return json;
+    }
     public Dungeon load() {
         int width = json.getInt("width");
         int height = json.getInt("height");
@@ -45,26 +49,66 @@ public abstract class DungeonLoader {
         dungeon.getPlayer().setGoal(goal);
         return dungeon;
     }
+    public ArrayList<String> getInstruction(JSONObject json) {
+    	ArrayList<String> instructions = new ArrayList<>();
+    	/*
+    	instructions.add("INSTRUCTIONS");
+    	instructions.add("Use array key to move player around");
+    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
+    	instructions.add("Use SPACE to drop the entity");
+    	instructions.add("Goals for this level:");
+    	*/
+    	String goal = json.getString("goal");
+    	
+    	if(goal.equals("AND")) {
+    		
+    		JSONArray array = json.getJSONArray("subgoals");
+    		instructions.add("Must complete all of the following goals:");
+    		ArrayList<String> andInstructions = new ArrayList<>();
+    		for(int i = 0 ; i < array.length(); i++) {
+    			andInstructions = getInstruction(array.getJSONObject(i));
+    			instructions.addAll(andInstructions);
+    		}
+    		return instructions;
+    	} else if(goal.equals("OR")) {
+    		ArrayList<String> orInstructions = new ArrayList<>();
+    		instructions.add("Must complete one of the follwing goals:");
+    		JSONArray array = json.getJSONArray("subgoals");
+    		for(int i = 0 ; i < array.length(); i++) {
+    			orInstructions = getInstruction(array.getJSONObject(i));
+    			instructions.addAll(orInstructions);
+    		}
+    		return instructions;
+    	} else if(goal.equals("enemies")) {
+    		instructions.add("Kill all the enemies in the dungeon");
+    		return instructions;
+    	} else if(goal.equals("boulders")) {
+    		instructions.add("Push all the boulders onto floor switches");
+    		return instructions;
+    	} else if(goal.equals("exit")) {
+    		instructions.add("Find your way to the exit");
+    		return instructions;
+    	} else if(goal.equals("treasure")) {
+    		instructions.add("Collect all the treasures");
+    		return instructions;
+    	}
+    	
+    	return instructions;
+    }
     private GoalComponent getGoal(Dungeon dungeon, JSONObject json) {
     	String goal = json.getString("goal");
     	if(goal.equals("AND")) {
+    		
     		GoalComponent compositeGoal = new CompositeGoal(true);
     		JSONArray array = json.getJSONArray("subgoals");
-    		//System.out.println(array.length());
+    		
     		for(int i = 0 ; i < array.length(); i++) {
-    			//System.out.println("Index i is " + i);
     			GoalComponent subGoal = getGoal(dungeon, array.getJSONObject(i));
-    			//System.out.println("-------------");
-    			//System.out.println(subGoal);
-    			//System.out.println("-------------");
     			if(Objects.nonNull(subGoal)) {
-    				//System.out.println(subGoal);
     				compositeGoal.addSubGoal(subGoal);
     			}
     		}
-    		//System.out.println("-------------");
-    		//System.out.println(compositeGoal);
-    		//System.out.println("-------------");
+    		
     		return compositeGoal;
     	} else if(goal.equals("OR")) {
     		GoalComponent compositeGoal = new CompositeGoal(false);
@@ -81,46 +125,16 @@ public abstract class DungeonLoader {
     		GoalComponent singleGoal = new BoulderGoal(dungeon);
     		return singleGoal;
     	} else if(goal.equals("exit")) {
-    		//System.out.println("Exit goal");
     		GoalComponent singleGoal = new ExitGoal(dungeon);
     		return singleGoal;
     	} else if(goal.equals("treasure")) {
-    		///System.out.println("Treasure goal");
     		GoalComponent singleGoal = new TreasureGoal(dungeon);
     		return singleGoal;
     	}
-    	//System.out.println("###");
-    	//System.out.println(goal);
+   
     	return null;
     } 
-    /*
-    private GoalComponent parseGoal(Dungeon dungeon, JSONObject jb) {
-    	if (jb.getString("goal").compareTo("AND") == 0) {
-    		CompositeGoal goal = new CompositeGoal(dungeon, true);
-    		JSONArray arr = jb.getJSONArray("subgoals");
-    		for (int i = 0 ; i < arr.length(); i++) {
-    			goal.addSubGoal(parseGoal(dungeon, arr.getJSONObject(i)));
-    		}
-    		return goal;
-    	} else if (jb.getString("goal").compareTo("OR") == 0) {
-    		CompositeGoal goal = new CompositeGoal(dungeon, false);
-    		JSONArray arr = jb.getJSONArray("subgoals");
-    		for (int i = 0 ; i < arr.length(); i++) {
-    			goal.addSubGoal(parseGoal(dungeon, arr.getJSONObject(i)));
-    		}
-    		return goal;
-    	} else if (jb.getString("goal").compareTo("boulders") == 0) {
-    		return new BoulderGoal(dungeon);
-    	} else if (jb.getString("goal").compareTo("enemies") == 0) {
-    		return new EnemyGoal(dungeon);
-    	} else if (jb.getString("goal").compareTo("treasure") == 0) {
-    		return new TreasureGoal(dungeon);
-    	} else if (jb.getString("goal").compareTo("exit") == 0) {
-    		return new ExitGoal(dungeon);
-    	}
-    	return null;
-    }
-    */
+    
     private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
         int x = json.getInt("x");
@@ -142,11 +156,8 @@ public abstract class DungeonLoader {
             break;
         case "door":
         	id = json.getInt("id");
-        	//System.out.println("666666");
         	Door door = new Door(x, y, id);
-        	//System.out.println("door door");
         	onLoad(door);
-        	//System.out.println("succeed");
         	entity = door;
         	break;
         case "boulder":
@@ -156,16 +167,11 @@ public abstract class DungeonLoader {
         	dungeon.addBoulder(boulder);
         	break;
         case "key":
-        	//System.out.println("key key key");
         	id = json.getInt("id");
         	Key key = new Key(x, y, id);
-        	//System.out.println(key);
         	onLoad(key);
-        	//System.out.println("hahaha");
         	entity = key;
-        	//System.out.println("successful");
         	break;
-        // TODO Handle other possible entities
         case "treasure":
         	Treasure treasure = new Treasure(x, y);
         	onLoad(treasure);
@@ -202,15 +208,11 @@ public abstract class DungeonLoader {
         	dungeon.addSwitch(floorSwitch);
         	break;
         case "exit":
-<<<<<<< HEAD
- 
-=======
         	Exit exit = new Exit(x, y);
         	onLoad(exit);
         	entity = exit;
         	dungeon.addExit(exit);
         	break;
->>>>>>> 0e2eb668f895b93789111969a7476df55da3e491
         }
         
         if(entity != null) {
@@ -243,6 +245,4 @@ public abstract class DungeonLoader {
     public abstract void onLoad(FloorSwitch floorSwitch);
     
     public abstract void onLoad(Exit exit);
-    // TODO Create additional abstract methods for the other entities
-
 }

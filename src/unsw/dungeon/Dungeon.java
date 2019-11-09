@@ -92,7 +92,7 @@ public class Dungeon {
     	for(Entity entity : entities) {
     		//System.out.println(entity.name());
     		if(entity.onSquare(x, y) && !entity.equals(player)) {
-    			System.out.println(entity.name());
+    			//System.out.println(entity.name());
     			e.add(entity);
     			//break;
     		}

@@ -1,5 +1,6 @@
 package unsw.dungeon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * A JavaFX controller for the dungeon.
@@ -24,6 +26,8 @@ public class DungeonController {
     private Player player;
 
     private Dungeon dungeon;
+    
+    private Stage stage;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
@@ -45,6 +49,49 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
+        /*
+        completedProperty.bind(initValueProperty.isEqualTo(finalValueProperty));
+
+        completedProperty.addListener((observable, oldValue, newValue) -> {
+            // Only if completed
+            if (newValue) 
+                root.setTop(new Label("Game Over"));
+        });
+        */
+        
+        player.getAliveProperty().addListener((observable, oldValue, newValue) -> {
+            // Only if completed
+        	System.out.println("GAME OVER !!!!!!");
+        	PlayerLoseScene loseScreen;
+			try {
+				loseScreen = new PlayerLoseScene(stage);
+				loseScreen.start();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	/*
+            if (newValue) {
+            	// call lose game scene
+            	System.out.println("PLAYER LOSES THE GAME");
+            }
+                //root.setTop(new Label("Game Over"));
+                 
+        	*/
+        });
+        
+        player.goalCompleted().addListener((observable, oldValue, newValue) -> {
+        	System.out.println("WIN !!!!!!");
+        	PlayerWinScene winScreen;
+			try {
+				winScreen = new PlayerWinScene(stage);
+				winScreen.start();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        });
+        
 
     }
 
@@ -55,6 +102,7 @@ public class DungeonController {
             player.moveUp();
             break;
         case DOWN:
+        	System.out.println("MOVING DOWN");
             player.moveDown();
             break;
         case LEFT:
@@ -69,12 +117,17 @@ public class DungeonController {
         default:
             break;
         }
-        if(player.goalCompleted()) {
+        if(player.goalCompleted().getValue()) {
         	System.out.println("Goal completed !!!!!!!!!!!!!!!!!!!!!!!");
         } else {
         	System.out.println("FUCK OFF");
         }
     }
+
+	public void setStage(Stage stage) {
+		// TODO Auto-generated method stub
+		this.stage = stage;
+	}
 
 }
 

@@ -24,6 +24,7 @@ public class Enemy extends Entity implements EntityObserver{
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
 		if(player.getX() == getX() && player.getY() == getY()) {
 			if(!player.killEnemy()) {
+				System.out.println("Player cannot kill enemy");
 				player.setAlive(false);
 				return false;
 			} else {
