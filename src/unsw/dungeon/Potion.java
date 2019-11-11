@@ -1,7 +1,10 @@
 package unsw.dungeon;
 import java.util.Objects;
 import java.util.Timer;
-import java.util.TimerTask; 
+import java.util.TimerTask;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty; 
 
 public class Potion extends Entity implements EntityObserver{
 
@@ -10,22 +13,23 @@ public class Potion extends Entity implements EntityObserver{
 	//Because of this, all enemies will run away from the player when they are invincible. 
 	//The effect of the potion only lasts a limited time.
 	
-	private int counter;
+	private IntegerProperty counter;
 	private Dungeon dungeon;
 	
 	public Potion(Dungeon dungeon, int x, int y) {
 		super(x, y);
-		counter = 10;
+		counter = new SimpleIntegerProperty(10);
 		this.dungeon = dungeon;
 	}
 
 	@Override
 	public void update(PlayerSubject player, int up, int down, int left, int right) {
 		// move along with the player
-		if (counter != 0) {
+		if (counter.get() != 0) {
 		x().setValue(((Player) player).getX());
 		y().setValue(((Player) player).getY());
-			counter--;
+			//counter--;
+			decreaseCount();
 			System.out.println(counter);
 		} else {
 			((Player) player).setState(new NoWeapon((Player) player));
@@ -35,9 +39,11 @@ public class Potion extends Entity implements EntityObserver{
 		
 	}
 	public void decreaseCount() {
-		counter--;
+		int counterInt = counter.get();
+		counterInt--;
+		counter.set(counterInt);
 	}
-	public int getCounter() {
+	public IntegerProperty getCounter() {
 		return counter;
 	}
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {

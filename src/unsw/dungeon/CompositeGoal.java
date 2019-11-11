@@ -42,4 +42,10 @@ public class CompositeGoal implements GoalComponent {
 		goals.add(goal);
 		return true;
 	}
+	
+	/*public String completedGoals() {
+		for (GoalComponent goal : goals) {
+			if (goal.)
+		}
+	}*/
 }

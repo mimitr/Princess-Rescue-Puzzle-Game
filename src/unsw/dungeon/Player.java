@@ -3,7 +3,9 @@ package unsw.dungeon;
 import java.util.Objects;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     private PlayerState hasPotionState;
     private PlayerState hasKeyState;
     private PlayerState currState = noWeaponState;
-    private int treasureAmount;
+    private IntegerProperty treasureAmount;
     private GoalComponent goal;
     private BooleanProperty alive;
     private BooleanProperty goalCompleted;
@@ -40,13 +42,17 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
         hasPotionState = new HasPotion(this);
         hasKeyState = new HasKey(this);
         currState = noWeaponState;
-        treasureAmount = 0;
+        treasureAmount = new SimpleIntegerProperty(0);
         alive = new SimpleBooleanProperty(true);
         goalCompleted = new SimpleBooleanProperty(false);
     }
     
     public void setGoal(GoalComponent goal) {
     	this.goal = goal;
+    }
+    
+    public GoalComponent getGoal() {
+    	return goal;
     }
     
     public BooleanProperty getAliveProperty() {
@@ -237,10 +243,12 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     }
     
     public void increaseTreasureAmount() {
-    	treasureAmount += 1;
+    	int treasureAmountInt = treasureAmount.get();
+    	treasureAmountInt += 1;
+    	treasureAmount.set(treasureAmountInt);
     }
     
-    public int treasureAmount() {
+    public IntegerProperty treasureAmount() {
     	return treasureAmount;
     }
     

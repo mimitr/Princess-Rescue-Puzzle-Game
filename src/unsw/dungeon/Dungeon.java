@@ -46,6 +46,11 @@ public class Dungeon {
     public void addTreasure(Treasure treasure) {
     	treasures.add(treasure);
     }
+    
+    public int treasureAmount ()  {
+    	return treasures.size();
+    }
+    
     public void addWall(Wall wall) {
     	walls.add(wall);
     }
