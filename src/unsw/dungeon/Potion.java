@@ -43,8 +43,8 @@ public class Potion extends Entity implements EntityObserver{
 		counterInt--;
 		counter.set(counterInt);
 	}
-	public IntegerProperty getCounter() {
-		return counter;
+	public int getCounter() {
+		return counter.get();
 	}
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
 		if(Objects.nonNull(player.getCarriedEntity()) && player.getCarriedEntity() instanceof Boulder) {
