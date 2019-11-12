@@ -1,10 +1,12 @@
 package unsw.dungeon;
 
+
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 
 public class PlayerWinScene {
@@ -22,7 +24,10 @@ public class PlayerWinScene {
 	}
 	
 	public void start() {
-		 stage.setScene(scene);
-	     stage.show();
+		
+	    stage.setScene(scene);
+	    stage.show();
+	     
 	}
+	
 }

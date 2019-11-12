@@ -36,7 +36,10 @@ public class StartPageController {
         //controller.setStage(stage);
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         //loader.setController(controller);
-		JSONObject json = new JSONObject(new JSONTokener(new FileReader("dungeons/advanced.json")));    
+		
+		String filename = "dungeons/1.json";
+		/*
+		JSONObject json = new JSONObject(new JSONTokener(new FileReader("dungeons/1.json")));    
         ArrayList<String> instructions = new ArrayList<>();
         instructions.add("INSTRUCTIONS");
     	instructions.add("Use array key to move player around");
@@ -45,8 +48,8 @@ public class StartPageController {
     	instructions.add("Goals for this level:");
     	instructions.addAll(getInstruction(json.getJSONObject("goal-condition")));
     	instructions.add("GOOD LUCK");
-    	
-    	InstructionsScene scene = new InstructionsScene(stage, instructions);
+    	*/
+    	InstructionsScene scene = new InstructionsScene(stage, filename);
     	scene.start();
 		//InstructionsController inController = new InstructionsController(stage, instructions);
 		//FXMLLoader inLoader = new FXMLLoader(getClass().getResource("InstructionsView.fxml"));

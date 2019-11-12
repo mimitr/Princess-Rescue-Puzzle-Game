@@ -16,16 +16,17 @@ import javafx.stage.Stage;
 public class InstructionsController {
 	private Stage stage;
 	private ArrayList<String> instructions;
-	
+	private String filename = "";
 	@FXML
 	private Pane instructionsPane;
 	
 	@FXML
 	private Button finishInstructionButton;
 	
-	public InstructionsController(Stage primaryStage, ArrayList<String> instructions) {
+	public InstructionsController(Stage primaryStage, ArrayList<String> instructions, String filename) {
 		this.stage = primaryStage;
 		this.instructions = instructions;
+		this.filename = filename;
 		//addInstructions();
 	}
 	
@@ -49,9 +50,12 @@ public class InstructionsController {
 	public void handleFinishInstructionButton(ActionEvent event) throws IOException {
 		// load the game
 		// show instructions of this level
-		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");	
+		String[] array = filename.split("/");
+		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(array[1]);	
         DungeonController controller = dungeonLoader.loadController();
-        stage.setTitle("Advanced");
+        System.out.println(array[1]);
+        String[] array1 = array[1].split("\\.");
+        stage.setTitle(array1[0]);
         controller.setStage(stage);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller); 	

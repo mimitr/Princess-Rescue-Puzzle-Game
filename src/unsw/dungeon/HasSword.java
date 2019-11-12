@@ -17,7 +17,8 @@ public class HasSword implements PlayerState {
 		if(entity.name().equals("treasure")) {
 			// player can pick it up
 			// treasure will just disappear from the dungeon
-			player.increaseTreasureAmount();
+			entity.pickedUp(player);
+			//player.increaseTreasureAmount();
 		}
 	}
 	
