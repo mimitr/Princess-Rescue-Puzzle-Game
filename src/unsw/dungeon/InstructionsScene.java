@@ -23,7 +23,7 @@ public class InstructionsScene {
         ArrayList<String> instructions = new ArrayList<>();
         instructions.add("INSTRUCTIONS");
     	instructions.add("Use array key to move player around");
-    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
+    	instructions.add("Pickable entities will be automatically picked up when player is standing\non the same square as the entity");
     	instructions.add("Use SPACE to drop the entity");
     	instructions.add("Goals for this level:");
     	instructions.addAll(getInstruction(json.getJSONObject("goal-condition")));
