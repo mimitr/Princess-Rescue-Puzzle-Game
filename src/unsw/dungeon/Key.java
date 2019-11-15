@@ -2,13 +2,18 @@ package unsw.dungeon;
 
 import java.util.Objects;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Key extends Entity implements EntityObserver {
 	
 	private int id;
+	private BooleanProperty functional;
 	
 	public Key(int x, int y, int id) {
         super(x, y);
         this.id = id;
+        functional = new SimpleBooleanProperty(true);
     }
 	
 	public int keyID() {
@@ -40,6 +45,14 @@ public class Key extends Entity implements EntityObserver {
 	public void pickedUp(Player player) {
 		player.attach((EntityObserver)this);
 		player.setState(player.getHasKeyState());
+	}
+	
+	public BooleanProperty functional() {
+		return functional;
+	}
+	
+	public void setFunctional(Boolean b) {
+		functional.setValue(b);
 	}
 	
 }

@@ -2,13 +2,16 @@ package unsw.dungeon;
 
 import java.util.Objects;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Treasure extends Entity {
 
-	private Boolean pickedUp;
+	private BooleanProperty pickedUp;
 	
 	public Treasure(int x, int y) {
 		super(x, y);
-		pickedUp = false;
+		pickedUp = new SimpleBooleanProperty(false);
 	}
 	
 	public Boolean canBePickedUp() {
@@ -25,14 +28,14 @@ public class Treasure extends Entity {
 	
 	public void pickedUp(Player player) {
 		player.increaseTreasureAmount();
-		pickedUp = true;
+		pickedUp.setValue(true);;
 	}
 	
 	public String name() {
 		return "treasure";
 	}
 	
-	public Boolean isPickedUp() {
+	public BooleanProperty isPickedUp() {
 		return pickedUp;
 	}
 }

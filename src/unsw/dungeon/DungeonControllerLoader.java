@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -36,6 +37,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image enemyImage;
     private Image switchImage;
     private Image exitImage;
+    private Image princessImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -54,6 +56,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         enemyImage = new Image("/hound.png");
         switchImage = new Image("pressure_plate.png");
         exitImage = new Image("/exit.png");
+        princessImage = new Image("/princess.png");
     }
 
     @Override
@@ -72,12 +75,19 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Door door) {
     	ImageView view = new ImageView(closedDoorImage);
+    	door.isOpen().addListener((observable, oldValue, newValue) -> {
+        	view.setImage(openDoorImage);
+        	System.out.println("Door is now open");
+        });
         addEntity(door, view);
     }
     
     @Override
     public void onLoad(Key key) {
     	ImageView view = new ImageView(keyImage);
+    	key.functional().addListener((observable, oldValue, newValue) -> {
+        	view.setVisible(false);
+        });
         addEntity(key, view);
     }
     
@@ -90,6 +100,9 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Sword sword) {
         ImageView view = new ImageView(swordImage);
+        sword.functional().addListener((observable, oldValue, newValue) -> {
+        	view.setVisible(false);
+        });
         addEntity(sword, view);
     }
     
@@ -97,12 +110,18 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Potion potion) {
         ImageView view = new ImageView(potionImage);
+        potion.functional().addListener((observable, oldValue, newValue) -> {
+        	view.setVisible(false);
+        });
         addEntity(potion, view);
     }
     
     @Override
     public void onLoad(Treasure treasure) {
         ImageView view = new ImageView(treasureImage);
+        treasure.isPickedUp().addListener((observable, oldValue, newValue) -> {
+        	view.setVisible(false);
+        });
         addEntity(treasure, view);
     }
     
@@ -115,6 +134,9 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Enemy enemy) {
         ImageView view = new ImageView(enemyImage);
+        enemy.stillAlive().addListener((observable, oldValue, newValue) -> {
+        	view.setVisible(false);
+        });
         addEntity(enemy, view);
     }
     

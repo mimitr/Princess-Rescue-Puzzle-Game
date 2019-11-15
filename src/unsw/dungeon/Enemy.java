@@ -2,16 +2,19 @@ package unsw.dungeon;
 
 import java.util.Objects;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.util.List;
 
 public class Enemy extends Entity implements EntityObserver{
 	
-	private Boolean alive;
+	private BooleanProperty alive;
 	private EnemyMoveStrategy strategy;
 	private Dungeon dungeon;
 	public Enemy(Dungeon dungeon, int x, int y) {
 		super(x, y);
-		alive = true;
+		alive = new SimpleBooleanProperty(true);
 		strategy = new ApproachPlayer();
 		this.dungeon = dungeon;
 	} 
@@ -29,13 +32,13 @@ public class Enemy extends Entity implements EntityObserver{
 				return false;
 			} else {
 				System.out.println("Enemy should die");
-				alive = false;
+				alive.setValue(false);;
 			}
 		}
 		return true;
 	}
 	
-	public Boolean stillAlive() {
+	public BooleanProperty stillAlive() {
 		return alive;
 	}
 	// strategy pattern
@@ -49,7 +52,7 @@ public class Enemy extends Entity implements EntityObserver{
 	
 	public Boolean canEnemyMoveTo(int x, int y) {
 		Boolean canMove = true;
-		if(alive) {
+		if(alive.getValue()) {
 			//System.out.println("enemy is still alive");
 			List<Entity> entities = dungeon.getEntityOnSquare(x, y);
 			if(!entities.isEmpty()) {

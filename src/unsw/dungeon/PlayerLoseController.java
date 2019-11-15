@@ -24,13 +24,13 @@ private Stage stage;
 	@FXML
 	public void handleRestartButton(ActionEvent event) throws IOException {
 		System.out.println("I wanna restart the game");
-		String filename = stage.getTitle().toLowerCase();
+		String filename = stage.getTitle();
+		stage.setTitle(filename);
 		filename = filename + ".json";
 		System.out.println(filename);
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(filename);	
         DungeonController controller = dungeonLoader.loadController();
-        stage.setTitle("Advance");
-        //controller.setStage(stage);
+        controller.setStage(stage);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
         loader.setController(controller); 	
         Parent root = loader.load();

@@ -20,7 +20,7 @@ public class FloorSwitch extends Entity implements EntityObserver {
 	}
 	
 	public Boolean canPlayerMove() {
-		return false;
+		return true;
 	}
 
 	public void setTriggered(Boolean triggered) {

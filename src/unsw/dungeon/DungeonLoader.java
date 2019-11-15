@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javafx.scene.control.Label;
+
 /**
  * Loads a dungeon from a .json file.
  *
@@ -169,17 +171,26 @@ public abstract class DungeonLoader {
         case "key":
         	id = json.getInt("id");
         	Key key = new Key(x, y, id);
+        	key.functional().addListener((observable, oldValue, newValue) -> {
+        		dungeon.deleteEntity(key);
+        	});
         	onLoad(key);
         	entity = key;
         	break;
         case "treasure":
         	Treasure treasure = new Treasure(x, y);
+        	treasure.isPickedUp().addListener((observable, oldValue, newValue) -> {
+        		dungeon.deleteEntity(treasure);
+        	});
         	onLoad(treasure);
         	entity = treasure;
         	dungeon.addTreasure(treasure);
         	break;
         case "sword":
         	Sword sword = new Sword(x, y);
+        	sword.functional().addListener((observable, oldValue, newValue) -> {
+        		dungeon.deleteEntity(sword);
+        	});
         	onLoad(sword);
         	entity = sword;
         	break;
@@ -192,12 +203,18 @@ public abstract class DungeonLoader {
         	break;
         case "enemy":
         	Enemy enemy = new Enemy(dungeon, x, y);
+        	enemy.stillAlive().addListener((observable, oldValue, newValue) -> {
+            	dungeon.deleteEntity(enemy);
+            });
         	onLoad(enemy);
         	entity = enemy;
         	dungeon.addEnemy(enemy);
         	break;
         case "invincibility":
         	Potion potion = new Potion(dungeon, x, y);
+        	potion.functional().addListener((observable, oldValue, newValue) -> {
+        		dungeon.deleteEntity(potion);
+        	});
         	onLoad(potion);
         	entity = potion;
         	break;
@@ -223,6 +240,8 @@ public abstract class DungeonLoader {
     }
 
     public abstract void onLoad(Entity player);
+    
+    //public abstract void onLoad(Princess princess);
 
     public abstract void onLoad(Wall wall);
 

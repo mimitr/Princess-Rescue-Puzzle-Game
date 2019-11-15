@@ -2,17 +2,25 @@ package unsw.dungeon;
 
 import java.util.Objects;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Sword extends Entity implements EntityObserver {
 	
 	private int remainingHits;
+	private BooleanProperty functional;
 
 	public Sword(int x, int y) {
 		super(x, y);
 		remainingHits = 5;
+		functional = new SimpleBooleanProperty(true);
 	}
 	
 	public void setRemainingHits() {
 		remainingHits--;
+		if(remainingHits == 0) {
+			functional.setValue(false);
+		}
 	}
 	
 	public int getRemainingHits() {
@@ -39,5 +47,9 @@ public class Sword extends Entity implements EntityObserver {
 	public void pickedUp(Player player) {
 		player.attach((EntityObserver)this);
 		player.setState(player.getHasSwordState());
-	}	
+	}
+	
+	public BooleanProperty functional() {
+		return functional;
+	}
 }

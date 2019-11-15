@@ -7,11 +7,11 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class Door extends Entity {
 	private int id;
-	private Boolean open;
+	private BooleanProperty open;
 	public Door(int x, int y, int id) {
         super(x, y);
         this.id = id;
-        open = false;
+        open = new SimpleBooleanProperty(false);
         //open.setValue(false);
     }
 	
@@ -36,13 +36,14 @@ public class Door extends Entity {
     public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
     	// determine player state
     	Boolean canMove = true;
-    	if(!open) {
+    	if(!open.getValue()) {
 	    	if(player.getCurrState().equals(player.getHasKeyState())) {
 	    		Key key = (Key) player.getCarriedEntity();
 	    		if(key.keyID() == id) {
-	        		open = true;
+	        		open.setValue(true);;
 	        		// detach the key from the player
 	        		player.getCurrState().putDown();
+	        		key.setFunctional(false);
 	        		// change closed door image to open door image
 	        		// How to change the image?
 	        	} else {
@@ -70,7 +71,7 @@ public class Door extends Entity {
     	return canMove;
     }
     
-    public Boolean isOpen() {
+    public BooleanProperty isOpen() {
     	return open;
     }
 }

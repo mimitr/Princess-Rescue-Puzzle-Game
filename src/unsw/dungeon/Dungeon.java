@@ -91,6 +91,10 @@ public class Dungeon {
         entities.add(entity);
     }
     
+    public void deleteEntity(Entity entity) {
+    	entities.remove(entity);
+    }
+    
     public List<Entity> getEntityOnSquare(int x, int y) {
     	//System.out.println("inside get entity on square");
     	List<Entity> e = new ArrayList<>();
@@ -174,7 +178,7 @@ public class Dungeon {
     public Boolean treasureGoalCompleted() {
     	Boolean completed = true;
     	for(Treasure treasure : treasures) {
-    		if(!treasure.isPickedUp()) {
+    		if(!treasure.isPickedUp().getValue()) {
     			completed = false;
     			break;
     		}
@@ -204,7 +208,7 @@ public class Dungeon {
     public Boolean enemyGoalCompleted() {
     	Boolean completed = true;
     	for(Enemy enemy : enemies) {
-    		if(enemy.stillAlive()) {
+    		if(enemy.stillAlive().getValue()) {
     			completed = false;
     			break;
     		}

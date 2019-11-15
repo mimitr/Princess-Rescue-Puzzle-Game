@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -37,7 +38,7 @@ public class InstructionsController {
 		for(String in : instructions) {
 			total = total + in + "\n";
 		}
-		TextArea txt = new TextArea(total);
+		Label txt = new Label(total);
 		txt.setLayoutX(0);
 		txt.setLayoutY(0);
 		txt.setMinHeight(320);

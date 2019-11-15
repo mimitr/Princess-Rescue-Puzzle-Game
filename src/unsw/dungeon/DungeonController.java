@@ -11,7 +11,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -39,6 +44,8 @@ public class DungeonController {
     private List<ImageView> initialEntities;
 
     private Player player;
+    
+    private Player princess;
 
     private Dungeon dungeon;
     
@@ -76,6 +83,38 @@ public class DungeonController {
         //vbox.setStyle("-fx-background-image: url(\"progress.png\"); -fx-background-size: cover;");
         
         
+        
+        Button restart = new Button();
+        restart.setText("OPPS RESTART!");
+        //squares.add(child, columnIndex, rowIndex);
+        //squares.add(child, columnIndex, rowIndex, colspan, rowspan);
+        squares.add(restart, dungeon.getWidth(), dungeon.getWidth() - (dungeon.getWidth()/2));
+        restart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+            	String filename = stage.getTitle();
+            	stage.setTitle(filename);
+        		filename = filename + ".json";
+        		System.out.println(filename);
+        		DungeonControllerLoader dungeonLoader;
+				try {
+					dungeonLoader = new DungeonControllerLoader(filename);
+					DungeonController controller = dungeonLoader.loadController();
+	                controller.setStage(stage);
+	                FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
+	                loader.setController(controller); 	
+	                Parent root = loader.load();
+	                Scene scene = new Scene(root);
+	                root.requestFocus();
+	                stage.setScene(scene);
+	                stage.show();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+            }
+        });
+       
+        
         //border.setRight(vbox);
         
         /*Label myProgLabel = new Label("My Progress"); 
@@ -99,7 +138,9 @@ public class DungeonController {
         
         ArrayList<String> instructions = new ArrayList<>();
         try {
-        	JSONObject json = new JSONObject(new JSONTokener(new FileReader("dungeons/advanced.json")));
+        	System.out.println(stage);
+        	String filename = "dungeons/" + stage.getTitle() + ".json";
+        	JSONObject json = new JSONObject(new JSONTokener(new FileReader(filename)));
         	instructions.addAll(getInstruction(json.getJSONObject("goal-condition")));
         } catch (FileNotFoundException fnfe) {
         	System.err.println(fnfe.getMessage());
