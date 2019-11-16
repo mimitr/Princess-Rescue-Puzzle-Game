@@ -86,11 +86,13 @@ public class DungeonController {
         //BorderPane border = new BorderPane();
         //squares.add(vbox, dungeon.getWidth() - 2, 0, 150, 50);
         VBox vbox = new VBox();
-        vbox.setMaxWidth(150);
-        vbox.setMinWidth(150);
-        squares.add(vbox, dungeon.getWidth(), 0, dungeon.getWidth() + 200, dungeon.getHeight());
+        vbox.setMinWidth(300);
+        //vbox.setMinWidth(150);
+        squares.add(vbox, dungeon.getWidth(), 0, dungeon.getHeight()+ 500, dungeon.getWidth() + 500);
         //vbox.setStyle("-fx-background-color: #333333");
-        vbox.setStyle("-fx-background-image: url(\"milky-way-1031138_1920.jpg\"); -fx-background-size: cover;");
+        //vbox.setStyle("-fx-border-style: solid; -fx-border-width: 3px;");
+        vbox.setStyle("-fx-background-image: url(\"vbox_photo.jpg\"); -fx-background-size: cover;");
+        //vbox.setStyle("-fx-border-style: solid; -fx-border-width: 3px;");
         //vbox.setStyle("-fx-background-image: url(\"progress.png\"); -fx-background-size: cover;");
         
         
