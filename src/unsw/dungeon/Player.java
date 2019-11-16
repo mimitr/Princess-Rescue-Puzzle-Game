@@ -61,7 +61,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     
     public BooleanProperty goalCompleted() {
     	if(Objects.nonNull(goal)) {
-    		goalCompleted.setValue(goal.completed());
+    		goalCompleted.setValue(goal.completed(getX(), getY()));
     		//return goal.completed();
     	}
     	return goalCompleted;

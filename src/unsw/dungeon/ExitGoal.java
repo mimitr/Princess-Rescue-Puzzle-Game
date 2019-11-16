@@ -1,14 +1,18 @@
 package unsw.dungeon;
 
 public class ExitGoal implements GoalComponent {
-	private Dungeon dungeon;
+	private Exit exit;
 	
-	public ExitGoal(Dungeon dungeon) {
-		this.dungeon = dungeon;
+	public ExitGoal(Exit exit) {
+		this.exit = exit;
 	}
 	
-	public Boolean completed() {
-		return dungeon.exitGoalCompleted();
+	public Boolean completed(int x, int y) {
+		Boolean completed = true;
+    	if(!(exit.getX() == x) || !(exit.getY() == y)) {
+    		completed = false;
+    	}
+    	return completed;
 	}
 	
 	public Boolean addSubGoal(GoalComponent goal) {

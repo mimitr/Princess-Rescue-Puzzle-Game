@@ -14,12 +14,12 @@ public class CompositeGoal implements GoalComponent {
 		this.andCondition = andCondition;
 	}
 	
-	public Boolean completed() {
+	public Boolean completed(int x, int y) {
 		Boolean completed;
 		if(andCondition) {
 			completed = true;
 			for(GoalComponent goal : goals) {
-				if(!goal.completed()) {
+				if(!goal.completed(x, y)) {
 					completed = false;
 					break;
 				}
@@ -28,7 +28,7 @@ public class CompositeGoal implements GoalComponent {
 		} else {
 			completed = false;
 			for(GoalComponent goal : goals) {
-				if(goal.completed()) {
+				if(goal.completed(x, y)) {
 					completed = true;
 					break;
 				}

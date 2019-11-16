@@ -121,16 +121,16 @@ public abstract class DungeonLoader {
     		}
     		return compositeGoal;
     	} else if(goal.equals("enemies")) {
-    		GoalComponent singleGoal = new EnemyGoal(dungeon);
+    		GoalComponent singleGoal = new EnemyGoal(dungeon.getAllEnemies());
     		return singleGoal;
     	} else if(goal.equals("boulders")) {
-    		GoalComponent singleGoal = new BoulderGoal(dungeon);
+    		GoalComponent singleGoal = new BoulderGoal(dungeon.getAllSwitches());
     		return singleGoal;
     	} else if(goal.equals("exit")) {
-    		GoalComponent singleGoal = new ExitGoal(dungeon);
+    		GoalComponent singleGoal = new ExitGoal(dungeon.getExit());
     		return singleGoal;
     	} else if(goal.equals("treasure")) {
-    		GoalComponent singleGoal = new TreasureGoal(dungeon);
+    		GoalComponent singleGoal = new TreasureGoal(dungeon.getAllTreasures());
     		return singleGoal;
     	}
    
@@ -230,7 +230,12 @@ public abstract class DungeonLoader {
         	entity = exit;
         	dungeon.addExit(exit);
         	break;
-        }
+        case "grass":
+        	Grass grass = new Grass(x, y);
+        	onLoad(grass);
+        	entity = grass;
+        	break;
+        } 
         
         if(entity != null) {
         	dungeon.addEntity(entity);
@@ -242,6 +247,7 @@ public abstract class DungeonLoader {
     public abstract void onLoad(Entity player);
     
     //public abstract void onLoad(Princess princess);
+    public abstract void onLoad(Grass grass);
 
     public abstract void onLoad(Wall wall);
 

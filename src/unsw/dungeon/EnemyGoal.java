@@ -1,15 +1,24 @@
 package unsw.dungeon;
 
+import java.util.List;
+
 public class EnemyGoal implements GoalComponent {
 	private Boolean completed;
-	private Dungeon dungeon;
-	public EnemyGoal(Dungeon dungeon) {
-		this.dungeon = dungeon;
+	private List<Enemy> enemies;
+	public EnemyGoal(List<Enemy> enemies) {
+		this.enemies = enemies;
 		completed = true;
 	}
 	@Override
-	public Boolean completed() {
-		return dungeon.enemyGoalCompleted();
+	public Boolean completed(int x, int y) {
+		Boolean completed = true;
+    	for(Enemy enemy : enemies) {
+    		if(enemy.stillAlive().getValue()) {
+    			completed = false;
+    			break;
+    		}
+    	}
+    	return completed;
 	}
 	@Override
 	public Boolean addSubGoal(GoalComponent goal) {

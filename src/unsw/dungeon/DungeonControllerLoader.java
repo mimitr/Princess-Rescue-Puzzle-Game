@@ -5,13 +5,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 /**
  * A DungeonLoader that also creates the necessary ImageViews for the UI,
@@ -38,6 +44,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image switchImage;
     private Image exitImage;
     private Image princessImage;
+    private Image grassImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -57,6 +64,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         switchImage = new Image("pressure_plate.png");
         exitImage = new Image("/exit.png");
         princessImage = new Image("/princess.png");
+        grassImage = new Image("/grass.png");
     }
 
     @Override
@@ -89,6 +97,34 @@ public class DungeonControllerLoader extends DungeonLoader {
         	view.setVisible(false);
         });
         addEntity(key, view);
+    }
+    
+    @Override
+    public void onLoad(Grass grass) {
+    	ImageView view = new ImageView(grassImage);
+    	grass.shouldAppear().addListener((observable, oldValue, newValue) -> {
+    		if(grass.shouldAppear().getValue()) {
+    			view.setVisible(true);
+    		} else {
+    			view.setVisible(false);
+    		}
+        	//view.setVisible(false);
+        });
+    	KeyFrame k = new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent> () {
+			@Override
+			public void handle(ActionEvent event) {
+				if(grass.shouldAppear().getValue()) {
+					grass.setAppear(false);
+				} else {
+					grass.setAppear(true);
+				}
+			}
+		});
+    	
+    	Timeline t = new Timeline(k);
+    	t.setCycleCount(Animation.INDEFINITE);
+		t.play();
+        addEntity(grass, view);
     }
     
     @Override

@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
 /**
  * A JavaFX controller for the dungeon.
  * @author Robert Clifton-Everest
@@ -50,12 +52,21 @@ public class DungeonController {
     private Dungeon dungeon;
     
     private Stage stage;
+    
+    private Timeline timeLine;
+	
+	private KeyFrame frame1;
+	
+	private KeyFrame frame2;
 
-    public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
+    public DungeonController(Dungeon dungeon, List<ImageView> initialEntities){
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
-        this.initialEntities = new ArrayList<>(initialEntities);
+        this.initialEntities = new ArrayList<>(initialEntities);    
     }
+    
+    
+    
 
     @FXML
     public void initialize() {
@@ -153,7 +164,7 @@ public class DungeonController {
         }
         
         //System.out.println("++++" + allInstr);
-        System.out.println(player.getGoal().completed());
+        //System.out.println(player.getGoal().completed());
         
         Label goalsSublabel = createSubheadingLabel(allInstr);
         

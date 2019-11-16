@@ -2,6 +2,7 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A dungeon in the interactive dungeon player.
@@ -38,7 +39,7 @@ public class Dungeon {
         this.treasures = new ArrayList<>();
         this.exit = null;
     }
-
+    
     public void addExit(Exit exit) {
     	this.exit = exit;
     }
@@ -95,6 +96,21 @@ public class Dungeon {
     	entities.remove(entity);
     }
     
+    public List<Treasure> getAllTreasures() {
+    	return treasures;
+    }
+    
+    public List<Enemy> getAllEnemies() {
+    	return enemies;
+    }
+    
+    public Exit getExit() {
+    	return exit;
+    }
+    
+    public List<FloorSwitch> getAllSwitches() {
+    	return floorSwitches;
+    }
     public List<Entity> getEntityOnSquare(int x, int y) {
     	//System.out.println("inside get entity on square");
     	List<Entity> e = new ArrayList<>();
@@ -175,6 +191,7 @@ public class Dungeon {
     	}
     }
     
+    /*
     public Boolean treasureGoalCompleted() {
     	Boolean completed = true;
     	for(Treasure treasure : treasures) {
@@ -215,4 +232,5 @@ public class Dungeon {
     	}
     	return completed;
     }
+    */
 }

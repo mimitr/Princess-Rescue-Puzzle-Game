@@ -1,14 +1,23 @@
 package unsw.dungeon;
 
+import java.util.List;
+
 public class TreasureGoal implements GoalComponent {
-	private Dungeon dungeon;
+	private List<Treasure> treasures;
 	
-	public TreasureGoal(Dungeon dungeon) {
-		this.dungeon = dungeon;
+	public TreasureGoal(List<Treasure> treasures) {
+		this.treasures = treasures;
 	}
 	
-	public Boolean completed() {
-		return dungeon.treasureGoalCompleted();
+	public Boolean completed(int x, int y) {
+		Boolean completed = true;
+    	for(Treasure treasure : treasures) {
+    		if(!treasure.isPickedUp().getValue()) {
+    			completed = false;
+    			break;
+    		}
+    	}
+    	return completed;
 	}
 	
 	public Boolean addSubGoal(GoalComponent goal) {
