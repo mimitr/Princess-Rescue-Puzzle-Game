@@ -50,8 +50,8 @@ public class DungeonControllerLoader extends DungeonLoader {
             throws FileNotFoundException {
         super(filename);
         entities = new ArrayList<>();
-        playerImage = new Image("/human_new.png");
-        wallImage = new Image("/brick_brown_0.png");
+        playerImage = new Image("/prince.png");
+        wallImage = new Image("/shell_wall.png");
         keyImage = new Image("/key.png");
         closedDoorImage = new Image("/closed_door.png");
         openDoorImage = new Image("/open_door.png");
@@ -60,7 +60,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         treasureImage = new Image("/gold_pile.png");
         boulderImage = new Image("/boulder.png");
         portalImage = new Image("/portal.png");
-        enemyImage = new Image("/hound.png");
+        enemyImage = new Image("/enemy.png");
         switchImage = new Image("pressure_plate.png");
         exitImage = new Image("/exit.png");
         princessImage = new Image("/princess.png");
