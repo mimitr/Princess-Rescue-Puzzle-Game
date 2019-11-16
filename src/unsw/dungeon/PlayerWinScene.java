@@ -6,7 +6,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 public class PlayerWinScene {
@@ -24,7 +24,8 @@ public class PlayerWinScene {
 	}
 	
 	public void start() {
-		
+		//AudioClip plonkSound = new AudioClip("http://somehost/path/plonk.aiff");
+		//plonkSound.play();
 	    stage.setScene(scene);
 	    stage.show();
 	     
