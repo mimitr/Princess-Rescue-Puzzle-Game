@@ -143,7 +143,6 @@ public class DungeonController {
 	                stage.setScene(scene);
 	                stage.show();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
             }
@@ -169,19 +168,15 @@ public class DungeonController {
 			allInstr += "\n";
         }
         
-        //System.out.println("++++" + allInstr);
-        //System.out.println(player.getGoal().completed());
         
         Label goalsSublabel = createSubheadingLabel(allInstr);
-        
-        Label taskLabel = createHeadingLabels("Task Completed:");
+
         Label treasureLabel = createHeadingLabels("Treasure collected:");
         
      // add label to vbox 
         vbox.getChildren().add(myProgLabel);
         vbox.getChildren().add(goalsLabel);
         vbox.getChildren().add(goalsSublabel);
-        vbox.getChildren().add(taskLabel);
         vbox.getChildren().add(treasureLabel);
         
         player.treasureAmount().addListener((observable, oldValue, newValue) -> {
@@ -200,7 +195,6 @@ public class DungeonController {
 				loseScreen = new PlayerLoseScene(stage);
 				loseScreen.start();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	
@@ -215,7 +209,6 @@ public class DungeonController {
     				FoundLoveScene love = new FoundLoveScene(stage);
     				love.start();
     			} catch (IOException e) {
-    				// TODO Auto-generated catch block
     				e.printStackTrace();
     			}
         	} else {
@@ -223,7 +216,6 @@ public class DungeonController {
         			PlayerWinScene winScreen = new PlayerWinScene(stage);
     				winScreen.start();
     			} catch (IOException e) {
-    				// TODO Auto-generated catch block
     				e.printStackTrace();
     			}
         	}
@@ -254,21 +246,21 @@ public class DungeonController {
         default:
             break;
         }
+        System.out.println(player.getCarriedEntity());
         if(player.goalCompleted().getValue()) {
         	System.out.println("Goal completed !!!!!!!!!!!!!!!!!!!!!!!");
         } else {
-        	System.out.println("FUCK OFF (goal has not completed)");
+        	System.out.println("Goal has not completed)");
         }
     }
 
 	public void setStage(Stage stage) {
-		// TODO Auto-generated method stub
 		this.stage = stage;
 	}
 	
 	public Label createHeadingLabels(String name) {
 		
-		Label label = new Label(name); 
+		Label label = new Label("\n"+"     "+name); 
         label.setMaxWidth(Region.USE_PREF_SIZE);
         label.setMinWidth(Region.USE_PREF_SIZE);
 		label.setFont(Font.font("American Typewriter", 14));
@@ -283,13 +275,12 @@ public class DungeonController {
 	
 	public Label createSubheadingLabel(String name)  {
 		
-		Label label = new Label(name); 
+		Label label = new Label("\n"+"     "+name); 
         label.setMaxWidth(Region.USE_PREF_SIZE);
         label.setMinWidth(Region.USE_PREF_SIZE);
 		label.setFont(Font.font("American Typewriter", 12));
 		label.setStyle("-fx-font-weight: bold");
 		label.setStyle("-fx-text-fill: white;");
-		//label.setStyle("-fx-padding: 1 0 0 0;");
 	    label.setWrapText(true);
 	    label.setTextAlignment(TextAlignment.LEFT);
 	   
@@ -299,13 +290,12 @@ public class DungeonController {
 	
 	public Label createMainHeadingLabel(String name)  {
 		
-		Label label = new Label(name); 
+		Label label = new Label("\n"+"   "+name+"\n"); 
         label.setMaxWidth(Region.USE_PREF_SIZE);
         label.setMinWidth(Region.USE_PREF_SIZE);
 		label.setFont(Font.font("American Typewriter", 18));
 		label.setStyle("-fx-font-weight: bold");
 		label.setStyle("-fx-text-fill: white;");
-		//label.setStyle("-fx-padding: 1 0 0 0;");
 	    label.setWrapText(true);
 	    label.setTextAlignment(TextAlignment.CENTER);
 	   
@@ -315,8 +305,7 @@ public class DungeonController {
 	
 	public Label createTreasureLabel() {
 		String name = player.treasureAmount().get() + "/" + dungeon.treasureAmount();
-		System.out.println(name);
-		Label label = new Label(name);
+		Label label = new Label("\n"+"     "+name);
 		label.setMaxWidth(Region.USE_PREF_SIZE);
         label.setMinWidth(Region.USE_PREF_SIZE);
 		label.setFont(Font.font("American Typewriter", 12));
@@ -330,13 +319,6 @@ public class DungeonController {
 	
 	private ArrayList<String> getInstruction(JSONObject json) {
     	ArrayList<String> instructions = new ArrayList<>();
-    	/*
-    	instructions.add("INSTRUCTIONS");
-    	instructions.add("Use array key to move player around");
-    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
-    	instructions.add("Use SPACE to drop the entity");
-    	instructions.add("Goals for this level:");
-    	*/
     	String goal = json.getString("goal");
     	
     	if(goal.equals("AND")) {
@@ -350,7 +332,7 @@ public class DungeonController {
     		return instructions;
     	} else if(goal.equals("OR")) {
     		ArrayList<String> orInstructions = new ArrayList<>();
-    		instructions.add("Must complete one of the follwing goals:");
+    		instructions.add("   You must complete one of the follwing goals:");
     		JSONArray array = json.getJSONArray("subgoals");
     		for(int i = 0 ; i < array.length(); i++) {
     			orInstructions = getInstruction(array.getJSONObject(i));
@@ -358,17 +340,19 @@ public class DungeonController {
     		}
     		return instructions;
     	} else if(goal.equals("enemies")) {
-    		instructions.add(" -> Enemies");
+    		instructions.add("           <> enemies");
     		return instructions;
     	} else if(goal.equals("boulders")) {
-    		instructions.add(" -> Floor switches");
+    		instructions.add("           <> floor switches");
     		return instructions;
     	} else if(goal.equals("exit")) {
-    		instructions.add(" -> Exit");
+    		instructions.add("           <> exit");
     		return instructions;
     	} else if(goal.equals("treasure")) {
-    		instructions.add(" -> Treasures");
+    		instructions.add("           <> treasures");
     		return instructions;
+    	} else if (goal.equals("princess")) {
+    		instructions.add("           <> save princess <3");
     	}
     	
     	return instructions;

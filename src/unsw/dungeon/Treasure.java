@@ -22,7 +22,6 @@ public class Treasure extends Entity {
 		if(Objects.nonNull(player.getCarriedEntity()) && player.getCarriedEntity() instanceof Boulder) {
 			return false;
 		}
-		//pickedUp(player);
 		return true;
 	}
 	

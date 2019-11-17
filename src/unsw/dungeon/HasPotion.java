@@ -13,31 +13,10 @@ public class HasPotion implements PlayerState {
 	}
 	
 	public void pickUp(Entity entity) {
-		if(entity.name().equals("treasure")) {
-			// player can pick it up
-			// treasure will just disappear from the dungeon
-			player.increaseTreasureAmount();
-		}
+		entity.pickedUp(player);
 	}
 	
 	public void putDown() {
-		/*
-		List<Entity> entities = new ArrayList<>();
-		entities = player.getDungeon().getEntityOnSquare(player.getX(), player.getY());
-		if(entities.size() == 1) {
-			Entity entity = entities.get(0);
-			if(entity instanceof FloorSwitch) {
-				player.detach();
-				player.setState(player.getNoWeaponState());
-			}
-		}
-		if(entities.size() == 0) {
-			player.detach();
-			player.setState(player.getNoWeaponState());
-		}
-		*/
-		//player.detach();
-		//player.setState(player.getNoWeaponState());
 		List<Entity> entities = new ArrayList<>();
 		entities = player.getDungeon().getEntityOnSquare(player.getX(), player.getY());
 		System.out.println(entities.size());
@@ -55,9 +34,14 @@ public class HasPotion implements PlayerState {
 		Potion potion = (Potion)player.getCarriedEntity();
 		if(potion.getCounter() > 0) {
 			potion.decreaseCount();
+			if(potion.getCounter() == 0) {
+				player.setState(player.getNoWeaponState());
+				player.detach();
+			}
 			return true;
 		} else {
 			player.setState(player.getNoWeaponState());
+			player.detach();
 			return false;
 		}
 		

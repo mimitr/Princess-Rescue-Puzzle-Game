@@ -151,7 +151,7 @@ public class Dungeon {
     
     public void notifySwitch() {
     	for(FloorSwitch floorSwitch : floorSwitches) {
-    		floorSwitch.checkBoulderOnTop(boulders, floorSwitch.getX(), floorSwitch.getY());
+    		floorSwitch.checkBoulderOnTop(boulders);
     	}
     }
     

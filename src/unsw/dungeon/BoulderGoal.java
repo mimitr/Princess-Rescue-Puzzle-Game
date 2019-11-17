@@ -13,7 +13,9 @@ public class BoulderGoal implements GoalComponent {
 	
 	public Boolean completed(int x, int y) {
 		Boolean completed = true;
+		System.out.println("Checking boulder goal...");
     	for(FloorSwitch s : floorSwitches) {
+    		System.out.println(s.getTriggered());
     		if(!s.getTriggered()) {
     			completed = false;
     			break;

@@ -463,6 +463,11 @@
       "type": "wall"
     },
     {
+      "x": 14,
+      "y": 7,
+      "type": "treasure"
+    },
+    {
       "x": 15,
       "y": 7,
       "type": "wall"
@@ -513,6 +518,11 @@
       "type": "wall"
     },
     {
+      "x": 16,
+      "y": 8,
+      "type": "treasure"
+    },
+    {
       "x": 17,
       "y": 8,
       "type": "wall"
@@ -541,6 +551,11 @@
       "x": 5,
       "y": 9,
       "type": "wall"
+    },
+        {
+      "x": 6,
+      "y": 9,
+      "type": "treasure"
     },
     {
       "x": 7,
@@ -631,6 +646,11 @@
       "x": 0,
       "y": 11,
       "type": "wall"
+    },
+    {
+      "x": 1,
+      "y": 11,
+      "type": "treasure"
     },
     {
       "x": 2,
@@ -736,6 +756,11 @@
       "x": 0,
       "y": 13,
       "type": "wall"
+    },
+    {
+      "x": 1,
+      "y": 13,
+      "type": "treasure"
     },
     {
       "x": 3,
@@ -1034,6 +1059,14 @@
     }
   ],
   "goal-condition": {
-    "goal": "exit"
+    "goal": "AND",
+    "subgoals": [
+      {
+        "goal": "exit"
+      },
+      {
+        "goal": "treasure"
+      }
+    ]
   }
 }

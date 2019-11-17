@@ -54,7 +54,6 @@ public class InstructionsController {
 		String[] array = filename.split("/");
 		DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(array[1]);	
         DungeonController controller = dungeonLoader.loadController();
-        System.out.println(array[1]);
         String[] array1 = array[1].split("\\.");
         stage.setTitle(array1[0]);
         controller.setStage(stage);

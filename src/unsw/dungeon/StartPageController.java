@@ -29,67 +29,17 @@ public class StartPageController {
 	
 	@FXML
 	public void handleStartGameButton(ActionEvent event) throws IOException {
-		// load the game
-		// show instructions of this level
-		//DungeonControllerLoader dungeonLoader = new DungeonControllerLoader("advanced.json");
-		//DungeonController controller = dungeonLoader.loadController();
-        //controller.setStage(stage);
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
-        //loader.setController(controller);
 		
 		String filename = "dungeons/1.json";
-		/*
-		JSONObject json = new JSONObject(new JSONTokener(new FileReader("dungeons/1.json")));    
-        ArrayList<String> instructions = new ArrayList<>();
-        instructions.add("INSTRUCTIONS");
-    	instructions.add("Use array key to move player around");
-    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
-    	instructions.add("Use SPACE to drop the entity");
-    	instructions.add("Goals for this level:");
-    	instructions.addAll(getInstruction(json.getJSONObject("goal-condition")));
-    	instructions.add("GOOD LUCK");
-    	*/
     	InstructionsScene scene = new InstructionsScene(stage, filename);
     	scene.start();
-		//InstructionsController inController = new InstructionsController(stage, instructions);
-		//FXMLLoader inLoader = new FXMLLoader(getClass().getResource("InstructionsView.fxml"));
-		//inLoader.setController(inController);
-		//inController.addInstructions();
-		/*
-		
-        DungeonController controller = dungeonLoader.loadController();
-        //controller.setStage(stage);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
-        loader.setController(controller);
-        ArrayList<String> instructions = new ArrayList<>();
-        instructions.add("INSTRUCTIONS");
-    	instructions.add("Use array key to move player around");
-    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
-    	instructions.add("Use SPACE to drop the entity");
-    	instructions.add("Goals for this level:");
-    	instructions.addAll(dungeonLoader.getInstruction());
-    	instructions.add("GOOD LUCK");
-    	
-    	*/
-    	/*
-        Parent root = inLoader.load();
-        Scene scene = new Scene(root);
-        root.requestFocus();
-        stage.setScene(scene);
-        stage.show();
-        */
+
 
 	}
 	
 	private ArrayList<String> getInstruction(JSONObject json) {
     	ArrayList<String> instructions = new ArrayList<>();
-    	/*
-    	instructions.add("INSTRUCTIONS");
-    	instructions.add("Use array key to move player around");
-    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
-    	instructions.add("Use SPACE to drop the entity");
-    	instructions.add("Goals for this level:");
-    	*/
+
     	String goal = json.getString("goal");
     	
     	if(goal.equals("AND")) {

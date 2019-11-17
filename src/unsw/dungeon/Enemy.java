@@ -53,17 +53,14 @@ public class Enemy extends Entity implements EntityObserver{
 	public Boolean canEnemyMoveTo(int x, int y) {
 		Boolean canMove = true;
 		if(alive.getValue()) {
-			//System.out.println("enemy is still alive");
 			List<Entity> entities = dungeon.getEntityOnSquare(x, y);
 			if(!entities.isEmpty()) {
-				//System.out.println("Enemy will encounter " + entity);
 				for(Entity entity : entities) {
 					if(!entity.canEnemyMove()) {
 						canMove = false;
 						break;
 					}
 				}
-				//canMove = entity.canEnemyMove();
 			}
 		} else {
 			canMove = false;

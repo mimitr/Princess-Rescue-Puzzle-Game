@@ -32,13 +32,16 @@ public class FloorSwitch extends Entity implements EntityObserver {
 		
 	}
 	
-	public void checkBoulderOnTop(List<Boulder> boulders, int x, int y) {
+	public void checkBoulderOnTop(List<Boulder> boulders) {
 		for (Boulder boulder : boulders) {
-			if (boulder.onSquare(x, y)) {
+			System.out.println(boulder.getX());
+			System.out.println(boulder.getY());
+			if (boulder.getX() == getX() && boulder.getY() == getY()) {
+				System.out.println("HAHAHAHAHAHA");
 				triggered = true;
+				break;
 			}
 		}
-		triggered = false;
 	}
 
 }

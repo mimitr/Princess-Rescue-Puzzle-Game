@@ -125,7 +125,6 @@ public class DungeonControllerLoader extends DungeonLoader {
     		} else {
     			view.setVisible(false);
     		}
-        	//view.setVisible(false);
         });
     	KeyFrame k = new KeyFrame(Duration.seconds(2), new EventHandler<ActionEvent> () {
 			@Override

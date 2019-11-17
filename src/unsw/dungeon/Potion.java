@@ -34,7 +34,13 @@ public class Potion extends Entity implements EntityObserver{
 		y().setValue(((Player) player).getY());
 			//counter--;
 			decreaseCount();
-			System.out.println(counter);
+			if(counter == 0) {
+				Player p = (Player) player;
+				p.setState(p.getNoWeaponState());
+				p.detach();
+				functional.setValue(false);
+			}
+			//System.out.println(counter);
 		} else {
 			((Player) player).setState(new NoWeapon((Player) player));
 			dungeon.enemyMoveTowards();
@@ -44,9 +50,7 @@ public class Potion extends Entity implements EntityObserver{
 		
 	}
 	public void decreaseCount() {
-		//int counterInt = counter.g);
 		counter--;
-		//counter.set(counterInt);
 	}
 	public int getCounter() {
 		return counter;

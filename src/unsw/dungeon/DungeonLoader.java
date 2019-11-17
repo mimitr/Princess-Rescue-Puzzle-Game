@@ -51,52 +51,8 @@ public abstract class DungeonLoader {
         dungeon.getPlayer().setGoal(goal);
         return dungeon;
     }
-    public ArrayList<String> getInstruction(JSONObject json) {
-    	ArrayList<String> instructions = new ArrayList<>();
-    	/*
-    	instructions.add("INSTRUCTIONS");
-    	instructions.add("Use array key to move player around");
-    	instructions.add("Pickable entities will be automatically picked up when player is standing on the same square as the entity");
-    	instructions.add("Use SPACE to drop the entity");
-    	instructions.add("Goals for this level:");
-    	*/
-    	String goal = json.getString("goal");
-    	
-    	if(goal.equals("AND")) {
-    		
-    		JSONArray array = json.getJSONArray("subgoals");
-    		instructions.add("Must complete all of the following goals:");
-    		ArrayList<String> andInstructions = new ArrayList<>();
-    		for(int i = 0 ; i < array.length(); i++) {
-    			andInstructions = getInstruction(array.getJSONObject(i));
-    			instructions.addAll(andInstructions);
-    		}
-    		return instructions;
-    	} else if(goal.equals("OR")) {
-    		ArrayList<String> orInstructions = new ArrayList<>();
-    		instructions.add("Must complete one of the follwing goals:");
-    		JSONArray array = json.getJSONArray("subgoals");
-    		for(int i = 0 ; i < array.length(); i++) {
-    			orInstructions = getInstruction(array.getJSONObject(i));
-    			instructions.addAll(orInstructions);
-    		}
-    		return instructions;
-    	} else if(goal.equals("enemies")) {
-    		instructions.add("Kill all the enemies in the dungeon");
-    		return instructions;
-    	} else if(goal.equals("boulders")) {
-    		instructions.add("Push all the boulders onto floor switches");
-    		return instructions;
-    	} else if(goal.equals("exit")) {
-    		instructions.add("Find your way to the exit");
-    		return instructions;
-    	} else if(goal.equals("treasure")) {
-    		instructions.add("Collect all the treasures");
-    		return instructions;
-    	}
-    	
-    	return instructions;
-    }
+    
+
     private GoalComponent getGoal(Dungeon dungeon, JSONObject json) {
     	String goal = json.getString("goal");
     	if(goal.equals("AND")) {
@@ -131,6 +87,9 @@ public abstract class DungeonLoader {
     		return singleGoal;
     	} else if(goal.equals("treasure")) {
     		GoalComponent singleGoal = new TreasureGoal(dungeon.getAllTreasures());
+    		return singleGoal;
+    	} else if(goal.equals("princess")) {
+    		GoalComponent singleGoal = new PrincessGoal(dungeon.getPrincess());
     		return singleGoal;
     	}
    
@@ -252,7 +211,6 @@ public abstract class DungeonLoader {
 
     public abstract void onLoad(Entity player);
     
-    //public abstract void onLoad(Princess princess);
     public abstract void onLoad(Grass grass);
 
     public abstract void onLoad(Wall wall);

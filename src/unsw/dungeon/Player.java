@@ -163,7 +163,6 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
 	            x().set(getX() - 1);
 	            //dungeon.enemyMove();
 	        }
-	        //System.out.println("Inside move left");
 	        dungeon.enemyMove();
 	        checkSameSquare();
 	        if(Objects.nonNull(carriedEntity) && !((Entity) carriedEntity).name().equals("boulder")) {
@@ -186,10 +185,8 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     }
     
     public boolean canMove(int x, int y, int up, int down, int left, int right) {
-    	//System.out.println("inside can move");
     	List<Entity> entities = new ArrayList<>();
     	Boolean canMove = true;
-    	//System.out.println(dungeon);
 		entities = dungeon.getEntityOnSquare(x, y);
 		if(!entities.isEmpty()) {
 			for(Entity entity : entities) {
@@ -228,28 +225,23 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
      
     public void checkSameSquare() {
     	// check if there is any entity on the same square as the player
-    	System.out.println("-----------------------------------");
-    	System.out.println("CHECKING THE FK SAME SQUARE");
     	List<Entity> entities = new ArrayList<>();
     	entities = dungeon.getEntityOnSquare(getX(), getY());
-    	System.out.println(entities);
     	if(!entities.isEmpty()) {
     		
     		for(Entity entity : entities) {
-    			System.out.println("Entity on the same square is " + entity);
+
 	    		if(entity.canBePickedUp()) {
 	    			System.out.println("can be picked up");
 	    			pickUp(entity);
 	    			break;
 	    		} else {
-	    			System.out.println("Player is current state is " + currState);
-	    			System.out.println("Playing meet " + entity);
+
 	    			entity.canPlayerMove(this, 0, 0, 0, 0);
 	    			//entity.canEnemyMove();
 	    		}
     		}
     	}
-    	System.out.println("-----------------------------------");
     }
     
     public void increaseTreasureAmount() {

@@ -13,28 +13,6 @@ public class NoWeapon implements PlayerState {
 	public void pickUp(Entity entity) {
 		// can pick up anything
 		entity.pickedUp(player);
-		/*
-		if(entity.name().equals("treasure")) {
-			player.increaseTreasureAmount();
-		} else {
-			// the image of the entity should move as the player moves
-			if(entity.name().equals("sword")) {
-				//System.out.println("666");
-				player.attach((EntityObserver)entity);
-				player.setState(player.getHasSwordState());
-			}
-			if(entity.name().equals("key")) {
-				System.out.println("Entity encountered is key");
-				player.attach((EntityObserver)entity);
-				player.setState(player.getHasKeyState());
-			}
-			if(entity.name().equals("potion")) {
-				player.attach((EntityObserver)entity);
-				player.setState(player.getHasPotionState());
-			}
-			
-		}
-		*/
 	}
 	
 	public void putDown() {

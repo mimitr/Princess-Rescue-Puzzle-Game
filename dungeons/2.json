@@ -668,6 +668,9 @@
       },
       {
         "goal": "treasure"
+      },
+      {
+        "goal": "boulders"
       }
     ]
   }

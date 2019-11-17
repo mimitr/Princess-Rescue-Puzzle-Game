@@ -42,12 +42,9 @@ public class Entity {
     }
    
     public Boolean onSquare(int x, int y) {
-    	//System.out.println("on square");
-    	//System.out.println(name());
     	if(x == x().get() && y == y().get()) {
     		return true;
     	}
-    	//System.out.println("return false");
     	return false;
     }
     

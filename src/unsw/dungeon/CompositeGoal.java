@@ -35,17 +35,10 @@ public class CompositeGoal implements GoalComponent {
 			}
 			return completed;
 		}
-		//return completed;
 	}
 	
 	public Boolean addSubGoal(GoalComponent goal) {
 		goals.add(goal);
 		return true;
 	}
-	
-	/*public String completedGoals() {
-		for (GoalComponent goal : goals) {
-			if (goal.)
-		}
-	}*/
 }

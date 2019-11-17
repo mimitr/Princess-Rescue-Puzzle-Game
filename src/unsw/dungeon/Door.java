@@ -12,19 +12,8 @@ public class Door extends Entity {
         super(x, y);
         this.id = id;
         open = new SimpleBooleanProperty(false);
-        //open.setValue(false);
     }
 	
-	/*
-	public boolean keyMatch(int keyId) {
-		if(keyId == id) {
-			//open.setValue(true);
-			return true;
-			// change door states to open
-		}
-		return false;
-	}
-	*/
 	public int doorID() {
 		return id;
 	}
@@ -44,28 +33,14 @@ public class Door extends Entity {
 	        		// detach the key from the player
 	        		player.getCurrState().putDown();
 	        		key.setFunctional(false);
-	        		// change closed door image to open door image
-	        		// How to change the image?
+
 	        	} else {
 	        		canMove = false;
 	        	}
-	    		/*
-	    		if(entity instanceof Key) {
-	    			Key key = (Key) entity;
-		        	if(key.keyID() == id) {
-		        		open = true;
-		        		// detach the key from the player
-		        		player.getCurrState().putDown();
-		        		// change closed door image to open door image
-		        		// How to change the image?
-		        	} else {
-		        		canMove = false;
-		        	}
-	    		}
-	    		*/
+
 	    	} else {
 	    		canMove = false;
-	    		//System.out.println("player doesn't have a key");
+
 	    	}
     	}
     	return canMove;
