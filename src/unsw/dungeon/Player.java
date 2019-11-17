@@ -27,6 +27,7 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
     private GoalComponent goal;
     private BooleanProperty alive;
     private BooleanProperty goalCompleted;
+    private BooleanProperty foundLove;
 
     /**
      * Create a player positioned in square (x,y)
@@ -45,6 +46,15 @@ public class Player extends Entity implements PlayerSubject, PlayerState {
         treasureAmount = new SimpleIntegerProperty(0);
         alive = new SimpleBooleanProperty(true);
         goalCompleted = new SimpleBooleanProperty(false);
+        foundLove = new SimpleBooleanProperty(false);
+    }
+    
+    public void setFoundLove(Boolean b) {
+    	foundLove.setValue(b);
+    }
+    
+    public BooleanProperty FoundLove() {
+    	return foundLove;
     }
     
     public void setGoal(GoalComponent goal) {

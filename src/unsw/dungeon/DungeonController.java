@@ -47,7 +47,7 @@ public class DungeonController {
 
     private Player player;
     
-    private Player princess;
+    private Princess princess;
 
     private Dungeon dungeon;
     
@@ -57,7 +57,29 @@ public class DungeonController {
 	
 	private KeyFrame frame1;
 	
-	private KeyFrame frame2;
+	@FXML
+	private ImageView enemyImage;
+	
+	@FXML
+	private ImageView treasureImage;
+	
+	@FXML
+	private ImageView grassImage;
+	
+	@FXML
+	private ImageView potionImage;
+	
+	@FXML
+	private ImageView swordImage;
+	
+	@FXML
+	private ImageView keyImage;
+	
+	@FXML
+	private ImageView doorImage;
+	
+	@FXML
+	private ImageView playerImage;
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities){
         this.dungeon = dungeon;
@@ -91,7 +113,7 @@ public class DungeonController {
         squares.add(vbox, dungeon.getWidth(), 0, dungeon.getHeight()+ 500, dungeon.getWidth() + 500);
         //vbox.setStyle("-fx-background-color: #333333");
         //vbox.setStyle("-fx-border-style: solid; -fx-border-width: 3px;");
-        vbox.setStyle("-fx-background-image: url(\"vbox_photo.jpg\"); -fx-background-size: cover;");
+        vbox.setStyle("-fx-background-image: url(\"milky-way-1031138_1920.jpg\"); -fx-background-size: cover;");
         //vbox.setStyle("-fx-border-style: solid; -fx-border-width: 3px;");
         //vbox.setStyle("-fx-background-image: url(\"progress.png\"); -fx-background-size: cover;");
         
@@ -127,24 +149,6 @@ public class DungeonController {
             }
         });
        
-        
-        //border.setRight(vbox);
-        
-        /*Label myProgLabel = new Label("My Progress"); 
-        myProgLabel.setMaxWidth(Region.USE_PREF_SIZE);
-        myProgLabel.setMinWidth(Region.USE_PREF_SIZE);
-        
-        Label goalsLabel = new Label("Goals:"); 
-        goalsLabel.setMaxWidth(Region.USE_PREF_SIZE);
-        goalsLabel.setMinWidth(Region.USE_PREF_SIZE);
-        
-        Label taskLabel = new Label("Task Completed:"); 
-        taskLabel.setMaxWidth(Region.USE_PREF_SIZE);
-        taskLabel.setMinWidth(Region.USE_PREF_SIZE);
-        
-        Label treasureLabel = new Label("Treasure:"); 
-        treasureLabel.setMaxWidth(Region.USE_PREF_SIZE);
-        treasureLabel.setMinWidth(Region.USE_PREF_SIZE);*/
         
         Label myProgLabel =  createMainHeadingLabel("My Progress");
         Label goalsLabel = createHeadingLabels("Goals:");
@@ -188,36 +192,6 @@ public class DungeonController {
         
         
         
-        /*HBox hbox = new HBox();
-        hbox.setMaxWidth(dungeon.getWidth());
-        squares.add(hbox, 30, 0);
-
-        // create a label 
-        Label myProgLabel = new Label("My Progress:"); 
-        myProgLabel.setMaxWidth(Double.MAX_VALUE);
-        myProgLabel.setMinWidth(Region.USE_PREF_SIZE);
-        
-        Label treasureLabel = new Label("Treasure:"); 
-        treasureLabel.setMaxWidth(Double.MAX_VALUE);
-        treasureLabel.setMinWidth(Region.USE_PREF_SIZE);
-
-        // add label to hbox 
-        hbox.getChildren().add(myProgLabel);
-        hbox.getChildren().add(treasureLabel);*/
-
-        
-        /*
-        completedProperty.bind(initValueProperty.isEqualTo(finalValueProperty));
-
-        completedProperty.addListener((observable, oldValue, newValue) -> {
-            // Only if completed
-            if (newValue) 
-                root.setTop(new Label("Game Over"));
-        });
-        */
-        
-        
-        
         player.getAliveProperty().addListener((observable, oldValue, newValue) -> {
             // Only if completed
         	System.out.println("GAME OVER !!!!!!");
@@ -229,29 +203,33 @@ public class DungeonController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        	/*
-            if (newValue) {
-            	// call lose game scene
-            	System.out.println("PLAYER LOSES THE GAME");
-            }
-                //root.setTop(new Label("Game Over"));
-                 
-        	*/
+        	
         });
         
         player.goalCompleted().addListener((observable, oldValue, newValue) -> {
         	System.out.println("WIN !!!!!!");
-        	PlayerWinScene winScreen;
-			try {
-				winScreen = new PlayerWinScene(stage);
-				winScreen.start();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        	
+        	String level = stage.getTitle();
+        	if(level.equals("3")) {
+        		try {
+    				FoundLoveScene love = new FoundLoveScene(stage);
+    				love.start();
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        	} else {
+        		try {
+        			PlayerWinScene winScreen = new PlayerWinScene(stage);
+    				winScreen.start();
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        	}
+			
         });
-        
-
+   
     }
 
     @FXML

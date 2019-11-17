@@ -235,6 +235,12 @@ public abstract class DungeonLoader {
         	onLoad(grass);
         	entity = grass;
         	break;
+        case "princess":
+        	Princess princess = new Princess(x, y);
+        	onLoad(princess);
+        	dungeon.addPrincess(princess);
+        	entity = princess;
+        	break;
         } 
         
         if(entity != null) {
@@ -270,4 +276,6 @@ public abstract class DungeonLoader {
     public abstract void onLoad(FloorSwitch floorSwitch);
     
     public abstract void onLoad(Exit exit);
+    
+    public abstract void onLoad(Princess princess);
 }

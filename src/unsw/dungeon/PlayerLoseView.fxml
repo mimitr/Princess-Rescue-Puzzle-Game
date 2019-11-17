@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/11.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="478.0" fitWidth="714.0" layoutX="-60.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="543.0" fitWidth="575.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/lose.jpeg" />
+            <Image url="@../../../images/u_lost.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="restartButton" layoutX="266.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleRestartButton" text="RESTART" textFill="#a40000" />
+      <Button fx:id="restartButton" layoutX="220.0" layoutY="375.0" mnemonicParsing="false" onAction="#handleRestartButton" text="RESTART" textFill="#a40000">
+         <effect>
+            <ColorAdjust brightness="0.32" contrast="0.44" />
+         </effect></Button>
    </children>
 </Pane>

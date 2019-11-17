@@ -25,6 +25,7 @@ public class Dungeon {
     private List<Treasure> treasures;
     private Exit exit;
     private Player player;
+    private Princess princess;
 
     public Dungeon(int width, int height) {
         this.width = width;
@@ -38,6 +39,15 @@ public class Dungeon {
         this.floorSwitches = new ArrayList<>();
         this.treasures = new ArrayList<>();
         this.exit = null;
+        this.princess = null;
+    }
+    
+    public Princess getPrincess() {
+    	return princess;
+    }
+    
+    public void addPrincess(Princess princess) {
+    	this.princess = princess;
     }
     
     public void addExit(Exit exit) {
@@ -128,14 +138,6 @@ public class Dungeon {
     
     public Portal getOtherPortal(Portal portal) {
     	Portal otherPortal = null;
-    	/*
-    	for(Entity entity : entities) {
-    		if(entity.getClass().equals(portal.getClass()) && !portal.equals((Portal)entity) && portal.getID() == ((Portal)entity).getID()) {
-    			otherPortal = (Portal) entity;
-    			break;
-    		}
-    	}
-    	*/
     	for(Portal other : portals) {
     		if(!other.equals(portal) && other.getID() == portal.getID()) {
     			System.out.println(other.getX());
@@ -163,13 +165,6 @@ public class Dungeon {
     	return total;
     }
     
-    /*public Boolean getEntityOnSwitch(int x, int y)  {
-    	for (FloorSwitch floorSwitch : floorSwitches) {
-    		if ((floorSwitch.getX() == x && floorSwitch.getY() == y) {
-    			
-    		}
-    	}
-    }*/
     
     public void enemyMoveAway() {
     	for(Enemy enemy : enemies) {
@@ -191,46 +186,4 @@ public class Dungeon {
     	}
     }
     
-    /*
-    public Boolean treasureGoalCompleted() {
-    	Boolean completed = true;
-    	for(Treasure treasure : treasures) {
-    		if(!treasure.isPickedUp().getValue()) {
-    			completed = false;
-    			break;
-    		}
-    	}
-    	return completed;
-    }
-    
-    public Boolean exitGoalCompleted() {
-    	Boolean completed = true;
-    	if(!(exit.getX() == player.getX()) || !(exit.getY() == player.getY())) {
-    		completed = false;
-    	}
-    	return completed;
-    }
-    
-    public Boolean boulderGoalCompleted() {
-    	Boolean completed = true;
-    	for(FloorSwitch s : floorSwitches) {
-    		if(!s.getTriggered()) {
-    			completed = false;
-    			break;
-    		}
-    	}
-    	return completed;
-    }
-    
-    public Boolean enemyGoalCompleted() {
-    	Boolean completed = true;
-    	for(Enemy enemy : enemies) {
-    		if(enemy.stillAlive().getValue()) {
-    			completed = false;
-    			break;
-    		}
-    	}
-    	return completed;
-    }
-    */
 }

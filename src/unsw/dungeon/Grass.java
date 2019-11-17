@@ -14,11 +14,8 @@ public class Grass extends Entity {
 	
 	public Boolean canPlayerMove(Player player, int up, int down, int left, int right) {
 		if(player.getX() == getX() && player.getY() == getY() && appear.getValue()) {
-			if(!player.killEnemy()) {
-				System.out.println("Player cannot kill enemy");
-				player.setAlive(false);
-				return false;
-			}
+			player.setAlive(false);
+			return false;
 		}
 		return true;
 	}

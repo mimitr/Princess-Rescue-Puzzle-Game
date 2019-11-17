@@ -45,6 +45,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image exitImage;
     private Image princessImage;
     private Image grassImage;
+    private Image heartImage;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -57,7 +58,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         openDoorImage = new Image("/open_door.png");
         swordImage = new Image("/greatsword_1_new.png");
         potionImage = new Image("/bubbly.png");
-        treasureImage = new Image("/gold_pile.png");
+        treasureImage = new Image("/treasure.png");
         boulderImage = new Image("/boulder.png");
         portalImage = new Image("/portal.png");
         enemyImage = new Image("/enemy.png");
@@ -65,11 +66,15 @@ public class DungeonControllerLoader extends DungeonLoader {
         exitImage = new Image("/exit.png");
         princessImage = new Image("/princess.png");
         grassImage = new Image("/grass.png");
+        heartImage = new Image("/heart.png");
     }
 
     @Override
     public void onLoad(Entity player) {
         ImageView view = new ImageView(playerImage);
+        ((Player) player).FoundLove().addListener((observable, oldValue, newValue) -> {
+        	view.setImage(heartImage);
+        });
         //player.getAliveProperty();
         addEntity(player, view);
     }
@@ -83,6 +88,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Door door) {
     	ImageView view = new ImageView(closedDoorImage);
+    	view.setId("doorImage");
     	door.isOpen().addListener((observable, oldValue, newValue) -> {
         	view.setImage(openDoorImage);
         	System.out.println("Door is now open");
@@ -93,6 +99,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Key key) {
     	ImageView view = new ImageView(keyImage);
+    	view.setId("keyImage");
     	key.functional().addListener((observable, oldValue, newValue) -> {
         	view.setVisible(false);
         });
@@ -100,8 +107,18 @@ public class DungeonControllerLoader extends DungeonLoader {
     }
     
     @Override
+    public void onLoad(Princess princess) {
+    	ImageView view = new ImageView(princessImage);
+    	princess.FoundLove().addListener((observable, oldValue, newValue) -> {
+        	view.setVisible(false);	
+        });
+        addEntity(princess, view);
+    }
+    
+    @Override
     public void onLoad(Grass grass) {
     	ImageView view = new ImageView(grassImage);
+    	view.setId("grassImage");
     	grass.shouldAppear().addListener((observable, oldValue, newValue) -> {
     		if(grass.shouldAppear().getValue()) {
     			view.setVisible(true);
@@ -136,6 +153,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Sword sword) {
         ImageView view = new ImageView(swordImage);
+        view.setId("swordImage");
         sword.functional().addListener((observable, oldValue, newValue) -> {
         	view.setVisible(false);
         });
@@ -146,6 +164,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Potion potion) {
         ImageView view = new ImageView(potionImage);
+        view.setId("potionImage");
         potion.functional().addListener((observable, oldValue, newValue) -> {
         	view.setVisible(false);
         });
@@ -155,6 +174,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Treasure treasure) {
         ImageView view = new ImageView(treasureImage);
+        view.setId("treasureImage");
         treasure.isPickedUp().addListener((observable, oldValue, newValue) -> {
         	view.setVisible(false);
         });
@@ -170,6 +190,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Enemy enemy) {
         ImageView view = new ImageView(enemyImage);
+        view.setId("enemyImage");
         enemy.stillAlive().addListener((observable, oldValue, newValue) -> {
         	view.setVisible(false);
         });
