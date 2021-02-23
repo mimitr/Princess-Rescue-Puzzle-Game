@@ -4,7 +4,7 @@
 
 ## Overview
 
-A dungeon-style puzzle game development following agile development process. This project was developed by Mimi Tran and Ellen Duan.
+A dungeon-style puzzle game development following agile development process. This project was developed by **Mimi Tran** and **Ellen Duan**.
 
 
 ### Dungeon layout
